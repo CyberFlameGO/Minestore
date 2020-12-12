@@ -1,0 +1,24 @@
+# ===========================================================================================
+# Thank you for using the Minestore system by Liel Amar & Bandoler.
+# For support, you can contact us through our discord server: https://discord.gg/NzgBrqR.
+#
+# Github: https://github.com/LielAmar/Minestore
+# ===========================================================================================
+
+# Whether to notify when there's an update available
+Check For Updates: true
+
+# Your MySQL Database Credentials
+MySQL:
+  credentials:
+    host: "localhost"
+    database: "auth"
+    port: 3306
+
+    auth:
+      username: "changeme"
+      password: "changeme"
+
+# Your In-game Server information
+Socket Server:
+  port: 6968
