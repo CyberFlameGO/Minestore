@@ -8,7 +8,8 @@
 # Whether to notify when there's an update available
 Check For Updates: true
 
-# Your MySQL Database Credentials
+# Your MySQL Database Credentials to check transactions.
+# This should be the same as the credentials in your website!
 MySQL:
   credentials:
     host: "localhost"
@@ -21,4 +22,4 @@ MySQL:
 
 # Your In-game Server information
 Socket Server:
-  port: 6968
+  port: 1803

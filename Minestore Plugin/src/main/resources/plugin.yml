@@ -1,0 +1,28 @@
+name: Minestore
+version: 1.0
+description: The Bukkit plugin of Minestore
+author: LielAmar
+main: com.lielamar.minestore.bukkit.Minestore
+
+commands:
+  minestore:
+    description: Main minestore command
+    aliases: [ms, store]
+
+permissions:
+  minestore.*:
+    description: Permissions to all minestore aspects
+    default: op
+    children:
+      minestore.commands.auth: true
+      minestore.commands.help: true
+      minestore.commands.reload: true
+  minestore.commands.auth:
+    description: Permissions to the /Minestore auth command
+    default: op
+  minestore.commands.help:
+    description: Permissions to the /Minestore help command
+    default: op
+  minestore.commands.reload:
+    description: Permissions to the /Minestore reload command
+    default: op

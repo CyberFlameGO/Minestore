@@ -1,5 +1,6 @@
 package com.lielamar.minestore.shared.encryption;
 
+import javax.annotation.Nullable;
 import javax.crypto.SecretKey;
 import java.io.*;
 import java.security.NoSuchAlgorithmException;
@@ -42,6 +43,7 @@ public class EncryptionKey {
                 this.secretKey = AES.getKeyObject(keyBuilder.toString());
             }
         } catch(IOException | NoSuchAlgorithmException exception) {
+            this.secretKey = null;
             System.out.println("Could not create a Secret Key!");
 
             exception.printStackTrace();
@@ -53,6 +55,7 @@ public class EncryptionKey {
      *
      * @return   Key
      */
+    @Nullable
     public String getKey() {
         return this.secretKey.toString();
     }

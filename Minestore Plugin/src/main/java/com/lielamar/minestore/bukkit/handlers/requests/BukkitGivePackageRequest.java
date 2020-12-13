@@ -1,11 +1,12 @@
 package com.lielamar.minestore.bukkit.handlers.requests;
 
-import com.lielamar.minestore.bukkit.Minestore;
-import com.lielamar.minestore.shared.network.requests.types.AuthenticationRequest;
+import com.lielamar.minestore.shared.handlers.requests.types.GivePackageRequest;
+import com.lielamar.minestore.shared.modules.MinestorePlugin;
+import org.json.JSONObject;
 
 import java.net.Socket;
 
-public class BukkitGivePackageRequest extends AuthenticationRequest {
+public class BukkitGivePackageRequest extends GivePackageRequest {
 
     /**
      * Bukkit GivePacketRequest.
@@ -14,21 +15,7 @@ public class BukkitGivePackageRequest extends AuthenticationRequest {
      * If they are online, it automatically gives them the items.
      */
 
-    private final Minestore plugin;
-
-    public BukkitGivePackageRequest(Minestore plugin, Socket socket, int protocolVersion, int requestId, String data) {
-        super(socket, protocolVersion, requestId, data);
-
-        this.plugin = plugin;
-    }
-
-    @Override
-    public void runRequest() {
-
-        // TODO:
-        // Write this method
-
-        plugin.getRequestHandler().removeRequest(this);
-        return;
+    public BukkitGivePackageRequest(MinestorePlugin plugin, Socket socket, int protocolVersion, int requestId, JSONObject data) {
+        super(plugin, socket, protocolVersion, requestId, data);
     }
 }

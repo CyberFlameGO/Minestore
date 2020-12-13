@@ -1,7 +1,9 @@
-package com.lielamar.minestore.shared.network;
+package com.lielamar.minestore.shared.handlers;
 
 import com.lielamar.minestore.shared.modules.CustomPlayer;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -15,19 +17,11 @@ public class PlayerManager {
         this.players = new ArrayList<>();
     }
 
-    public List<CustomPlayer> getPlayers() {
-        return this.players;
-    }
-
-    public void addPlayer(CustomPlayer player) {
+    public void addPlayer(@Nonnull CustomPlayer player) {
         this.players.add(player);
     }
 
-    public void removePlayer(CustomPlayer player) {
-        this.players.remove(player);
-    }
-
-    public void removePlayer(UUID uuid) {
+    public void removePlayer(@Nonnull UUID uuid) {
         Iterator<CustomPlayer> it = this.players.iterator();
         CustomPlayer cp;
 
@@ -39,6 +33,7 @@ public class PlayerManager {
         }
     }
 
+    @Nullable
     public CustomPlayer getPlayer(UUID uuid) {
         for(CustomPlayer cp : this.players) {
             if(cp.getPlayerUUID() == uuid)

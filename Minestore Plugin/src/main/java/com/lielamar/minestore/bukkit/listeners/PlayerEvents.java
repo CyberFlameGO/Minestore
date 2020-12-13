@@ -1,7 +1,6 @@
 package com.lielamar.minestore.bukkit.listeners;
 
 import com.lielamar.minestore.bukkit.Minestore;
-import com.lielamar.minestore.bukkit.modules.BukkitCustomPlayer;
 import com.lielamar.minestore.shared.modules.CustomPlayer;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,7 +17,7 @@ public class PlayerEvents implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-        CustomPlayer cp = new BukkitCustomPlayer(event.getPlayer());
+        CustomPlayer cp = new CustomPlayer(event.getPlayer().getName(), event.getPlayer().getUniqueId());
         plugin.getPlayerManager().addPlayer(cp);
     }
 
