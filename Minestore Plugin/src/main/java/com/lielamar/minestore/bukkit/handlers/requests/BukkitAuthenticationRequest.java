@@ -1,16 +1,15 @@
 package com.lielamar.minestore.bukkit.handlers.requests;
 
-import com.lielamar.minestore.bukkit.Minestore;
-import com.lielamar.minestore.shared.modules.CustomPlayer;
-import com.lielamar.minestore.shared.network.requests.types.AuthenticationRequest;
+import com.lielamar.minestore.shared.handlers.requests.types.AuthenticationRequest;
+import com.lielamar.minestore.shared.modules.MinestorePlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
+import org.json.JSONObject;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
+import javax.annotation.Nullable;
 import java.net.Socket;
+import java.util.UUID;
 
 public class BukkitAuthenticationRequest extends AuthenticationRequest {
 
@@ -21,63 +20,40 @@ public class BukkitAuthenticationRequest extends AuthenticationRequest {
      * their next purchase.
      */
 
-    private final Minestore plugin;
-
-    public BukkitAuthenticationRequest(Minestore plugin, Socket socket, int protocolVersion, int requestId, String data) {
-        super(socket, protocolVersion, requestId, data);
-
-        this.plugin = plugin;
+    public BukkitAuthenticationRequest(MinestorePlugin plugin, Socket socket, int protocolVersion, int requestId, JSONObject data) {
+        super(plugin, socket, protocolVersion, requestId, data);
     }
 
+    /**
+     * Loads everything before starting the authentication timer.
+     * Also loads the target player from the given UUID, sends them a message if they are online
+     * and returns the object
+     *
+     * @param uuid   UUID of the target player
+     * @return       Target player as a typeless object
+     */
     @Override
-    public void runRequest() {
-        Player targetPlayer = Bukkit.getPlayer(getTargetPlayerName());
+    @Nullable
+    public Object preTimer(UUID uuid) {
+        Player targetPlayer = Bukkit.getPlayer(uuid);
 
         if(targetPlayer != null)
             targetPlayer.sendMessage(ChatColor.GRAY + "[STORE] " + ChatColor.AQUA + "Please authenticate your purchase via /Minestore auth!");
 
-        new BukkitRunnable() {
-            CustomPlayer customPlayer = null;
-            int time = 300;
+        return targetPlayer;
+    }
 
-            @Override
-            public void run() {
-                if(time <= 0) {
-                    this.cancel();
+    /**
+     * Loads everything after the timer ends.
+     * Also loads the target player from the given UUID and sends them a message if they are online
+     *
+     * @param uuid   UUID of the target player
+     */
+    @Override
+    public void postTimer(UUID uuid) {
+        Player targetPlayer = Bukkit.getPlayer(uuid);
 
-                    plugin.getRequestHandler().removeRequest(BukkitAuthenticationRequest.this);
-                    return;
-                }
-
-                if(targetPlayer != null && targetPlayer.isOnline()) {
-                    if(customPlayer == null) {
-                        customPlayer = plugin.getPlayerManager().getPlayer(targetPlayer.getUniqueId());
-                        // Removing the "previous" authentication to prevent authenticating automatically
-                        customPlayer.setAuthenticated(false);
-                    }
-
-                    if(customPlayer.hasAuthenticated()) {
-                        try {
-                            DataOutputStream out = new DataOutputStream(getSocket().getOutputStream());
-                            out.writeInt(getProtocolVersion());
-                            out.writeInt(getRequestId());
-                            out.writeBoolean(true);
-                            out.flush();
-
-                            getSocket().close();
-                            cancel();
-
-                            plugin.getRequestHandler().removeRequest(BukkitAuthenticationRequest.this);
-                            customPlayer.setAuthenticated(false);
-                            targetPlayer.sendMessage(ChatColor.GRAY + "[STORE] " + ChatColor.AQUA + "You have authenticated your purchase!");
-                            return;
-                        } catch(IOException exception) {
-                            exception.printStackTrace();
-                        }
-                    }
-                }
-                time--;
-            }
-        }.runTaskTimerAsynchronously(plugin, 0L, 20L);
+        if(targetPlayer != null)
+            targetPlayer.sendMessage(ChatColor.GRAY + "[STORE] " + ChatColor.AQUA + "You have authenticated your purchase!");
     }
 }

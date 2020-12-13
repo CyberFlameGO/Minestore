@@ -1,19 +1,19 @@
 package com.lielamar.minestore.bukkit.handlers;
 
-import com.lielamar.minestore.bukkit.Minestore;
 import com.lielamar.minestore.bukkit.handlers.requests.BukkitAuthenticationRequest;
 import com.lielamar.minestore.bukkit.handlers.requests.BukkitGivePackageRequest;
-import com.lielamar.minestore.shared.network.RequestHandler;
-import com.lielamar.minestore.shared.network.requests.Request;
+import com.lielamar.minestore.shared.handlers.RequestHandler;
+import com.lielamar.minestore.shared.handlers.requests.Request;
+import com.lielamar.minestore.shared.modules.MinestorePlugin;
+import org.json.JSONObject;
 
+import javax.annotation.Nullable;
 import java.net.Socket;
 
 public class BukkitRequestHandler extends RequestHandler {
 
-    private final Minestore plugin;
-
-    public BukkitRequestHandler(Minestore plugin) {
-        this.plugin = plugin;
+    public BukkitRequestHandler(MinestorePlugin plugin) {
+        super(plugin);
     }
 
     /**
@@ -25,8 +25,9 @@ public class BukkitRequestHandler extends RequestHandler {
      * @param data              Request data
      * @return                  Created request object
      */
+    @Nullable
     @Override
-    public Request getRequestById(Socket socket, int protocolVersion, int requestId, String data) {
+    protected Request getRequestById(Socket socket, int protocolVersion, int requestId, JSONObject data) {
         switch(requestId) {
             case 0:
                 return new BukkitAuthenticationRequest(plugin, socket, protocolVersion, requestId, data);

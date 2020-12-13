@@ -1,5 +1,6 @@
 package com.lielamar.minestore.shared.encryption;
 
+import javax.annotation.Nullable;
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
@@ -16,6 +17,7 @@ public class AES {
      *
      * @param key   Key to use to generate the SecretKeySpec object
      */
+    @Nullable
     public static SecretKey getKeyObject(String key) {
         MessageDigest sha;
         byte[] keyBytes;
@@ -40,6 +42,7 @@ public class AES {
      * @param key         Key to use for encryption
      * @return            Encrypted string
      */
+    @Nullable
     public static String encrypt(String decrypted, String key) {
         try {
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
@@ -48,6 +51,7 @@ public class AES {
         } catch(Exception e) {
             System.out.println("Error while encrypting: " + e.toString());
         }
+
         return null;
     }
 
@@ -58,6 +62,7 @@ public class AES {
      * @param key         Key to use for decryption
      * @return            Decrypted string
      */
+    @Nullable
     public static String decrypt(String encrypted, String key) {
         try {
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5PADDING");
@@ -66,6 +71,7 @@ public class AES {
         } catch(Exception e) {
             System.out.println("Error while decrypting: " + e.toString());
         }
+
         return null;
     }
 }

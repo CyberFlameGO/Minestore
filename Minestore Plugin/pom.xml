@@ -23,8 +23,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.5.1</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
                 </configuration>
             </plugin>
 
@@ -38,6 +38,19 @@
                         <goals>
                             <goal>shade</goal>
                         </goals>
+                        <configuration>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <relocations>
+                                <relocation>
+                                    <pattern>com.lielamar.lielsutils</pattern>
+                                    <shadedPattern>com.lielamar.minestore.lib.lielsutils</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.json</pattern>
+                                    <shadedPattern>com.lielamar.minestore.lib.json</shadedPattern>
+                                </relocation>
+                            </relocations>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -54,7 +67,7 @@
     <dependencies>
         <dependency>
             <groupId>com.lielamar</groupId>
-            <artifactId>LielsUtils</artifactId>
+            <artifactId>lielsutils</artifactId>
             <version>1.2.3</version>
             <scope>compile</scope>
         </dependency>
