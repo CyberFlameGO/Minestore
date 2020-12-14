@@ -6,7 +6,7 @@ import com.lielamar.minestore.bukkit.commands.MinestoreCommand;
 import com.lielamar.minestore.bukkit.handlers.BukkitRequestHandler;
 import com.lielamar.minestore.bukkit.listeners.PlayerEvents;
 import com.lielamar.minestore.shared.encryption.EncryptionKey;
-import com.lielamar.minestore.shared.handlers.PlayerManager;
+import com.lielamar.minestore.shared.handlers.PlayerHandler;
 import com.lielamar.minestore.shared.handlers.SocketServerHandler;
 import com.lielamar.minestore.shared.modules.MinestorePlugin;
 import org.bukkit.Bukkit;
@@ -21,7 +21,7 @@ public class Minestore extends JavaPlugin implements MinestorePlugin {
     private EncryptionKey encryptionKey;
     private BukkitRequestHandler requestHandler;
     private SocketServerHandler socketServerHandler;
-    private PlayerManager playerManager;
+    private PlayerHandler playerHandler;
 
     @Override
     public void onEnable() {
@@ -51,7 +51,7 @@ public class Minestore extends JavaPlugin implements MinestorePlugin {
             this.encryptionKey = new EncryptionKey(getDataFolder().getPath());
             this.requestHandler = new BukkitRequestHandler(this);
             this.socketServerHandler = new SocketServerHandler(port, requestHandler);
-            this.playerManager = new PlayerManager();
+            this.playerHandler = new PlayerHandler();
         } catch(IOException exception) {
             exception.printStackTrace();
         }
@@ -76,5 +76,5 @@ public class Minestore extends JavaPlugin implements MinestorePlugin {
     public EncryptionKey getEncryptionKey() { return this.encryptionKey; }
     public BukkitRequestHandler getRequestHandler() { return this.requestHandler; }
     public SocketServerHandler getSocketServerHandler() { return this.socketServerHandler; }
-    public PlayerManager getPlayerManager() { return this.playerManager; }
+    public PlayerHandler getPlayerHandler() { return this.playerHandler; }
 }

@@ -18,11 +18,11 @@ public class PlayerEvents implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         CustomPlayer cp = new CustomPlayer(event.getPlayer().getName(), event.getPlayer().getUniqueId());
-        plugin.getPlayerManager().addPlayer(cp);
+        plugin.getPlayerHandler().addPlayer(cp);
     }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
-        plugin.getPlayerManager().removePlayer(event.getPlayer().getUniqueId());
+        plugin.getPlayerHandler().removePlayer(event.getPlayer().getUniqueId());
     }
 }

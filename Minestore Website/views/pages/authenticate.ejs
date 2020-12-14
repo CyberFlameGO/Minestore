@@ -1,0 +1,50 @@
+<%- include('../partials/header.ejs') %>
+
+<div class="container">
+
+  <div class="alerts" align="center">
+    <p id="alert">alert</p>
+  </div>
+
+  <div class="authentication">
+    <h2>
+      Please authenticate your identity
+    </h2>
+    <form id="authform" class="authform" align="center" method="post" action="/requests/authenticate">
+      <input type="text" id="ign" name="ign" placeholder="In Game Name" onkeypress="validate(event)" required>
+      <input type="submit" id="submit" value="Authenticate" onclick="return validateObject();" required></input>
+    </form>
+  </div>
+
+  <script>
+    loadError(document.getElementById("alert"), 0<%- error %>);
+
+    function validate(event) {
+      var char = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+      if(validateIgn(document.getElementById("ign").value + char))
+        return true;
+
+      event.preventDefault();
+      return false;
+    }
+
+    function validateIgn(ign) {
+      var regex = new RegExp("^[a-zA-Z0-9_]+$");
+      if(regex.test(ign) && ign.length <= 16)
+        return true;
+      return false;
+    }
+
+    function validateObject() {
+      var str = document.getElementById("ign").value;
+      if(!str || !validateIgn)
+        return false;
+
+      displayAlert(document.getElementById("alert"), "Please validate your purchase in-game, using /Minestore auth!", "#1bc700");
+      return true;
+    }
+  </script>
+
+</div>
+
+<%- include('../partials/footer.ejs') %>

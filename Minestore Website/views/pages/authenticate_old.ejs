@@ -1,0 +1,50 @@
+<%- include('../partials/header.ejs') %>
+
+<div class="container">
+
+  <div class="authentication">
+    <h2>
+      Please authenticate your identity
+    </h2>
+    <form id="authform" class="authform" align="center">
+      <input type="text" id="ign" name="ign" placeholder="In Game Name" onkeypress="validate(event)">
+      <button id="submit" onclick="return authenticate()">Authenticate</button>
+    </div>
+  </div>
+
+  <script>
+    function validate(event) {
+      var ign = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+      if(validateIgn(ign))
+        return true;
+
+      event.preventDefault();
+      return false;
+    }
+
+    function validateIgn(ign) {
+      var regex = new RegExp("^[a-zA-Z0-9_]+$");
+      if(regex.test(ign))
+        return true;
+    }
+
+    function authenticate () {
+      if(!validateIgn(document.getElementById("ign").value)) {
+        document.getElementById("ign").focus();
+        return false;
+      } else {
+        $.ajax({
+            url: "/requests/authenticate",
+            type: 'post',
+            data: $('#authform').serialize(),
+            success: () => {
+              window.location.replace("/checkout");
+            }
+        });
+      }
+    }
+  </script>
+
+</div>
+
+<%- include('../partials/footer.ejs') %>

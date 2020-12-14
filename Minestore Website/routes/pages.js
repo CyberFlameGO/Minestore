@@ -8,14 +8,35 @@ const express = require("express");
 const router = express.Router();
 
 // ========== [Initialization] ========== \\
-router.get("/", async(request, response) => {
-  response.render("pages/index");
-  response.end();
+router.get("/", async(req, res) => {
+  res.render("pages/index");
 });
 
-router.get("/store", async(request, response) => {
-  response.render("pages/store");
-  response.end();
+router.get("/support", async(req, res) => {
+  res.render("pages/support");
+});
+
+router.get("/authenticate", async(req, res) => {
+  var error = req.cookies["error"];
+  res.clearCookie("error", { httpOnly: true });
+
+  res.render("pages/authenticate", { error: error });
+});
+
+router.get("/checkout", async(req, res) => {
+  res.render("pages/checkout");
+});
+
+router.get("/category/ranks", async(req, res) => {
+  res.render("pages/category/ranks");
+});
+
+router.get("/category/coins", async(req, res) => {
+  res.render("pages/category/coins");
+});
+
+router.get("/category/pets", async(req, res) => {
+  res.render("pages/category/pets");
 });
 
 module.exports = router;

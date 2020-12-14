@@ -107,9 +107,11 @@ public abstract class AuthenticationRequest extends Request {
      * @param uuid   UUID of the target player to get the custom player object of
      * @return       CustomPlayer object
      */
+    @Nullable
     public CustomPlayer loadCustomPlayer(UUID uuid) {
-        CustomPlayer customPlayer = getPlugin().getPlayerManager().getPlayer(uuid);
-        customPlayer.setAuthenticated(false);
+        CustomPlayer customPlayer = getPlugin().getPlayerHandler().getPlayer(uuid);
+        if(customPlayer != null)
+            customPlayer.setAuthenticated(false);
 
         return customPlayer;
     }

@@ -4,17 +4,14 @@ import com.lielamar.minestore.shared.modules.CustomPlayer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
-public class PlayerManager {
+public class PlayerHandler {
 
-    private final List<CustomPlayer> players;
+    private final Set<CustomPlayer> players;
 
-    public PlayerManager() {
-        this.players = new ArrayList<>();
+    public PlayerHandler() {
+        this.players = new HashSet<>();
     }
 
     public void addPlayer(@Nonnull CustomPlayer player) {

@@ -1,6 +1,6 @@
 var net = require("net");
 
-var client = net.connect(6969, "localhost");
+var client = net.connect(5001, "localhost");
 
 var request = {
   "protocol_version":1,
