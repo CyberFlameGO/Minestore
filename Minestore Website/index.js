@@ -1,10 +1,16 @@
 const express = require('express');
 const path = require('path');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const dotenv = require('dotenv');
 
 // ========== [Variables] ========== \\
 const app = express();
+
 const publicDir = '/public';
 const viewsDir = '/views';
+
+dotenv.config({ path: "./.env"});
 
 // ========== [Set-ups] ========== \\
 // Setting Static Files
@@ -17,11 +23,17 @@ app.use('/js', express.static(path.join(__dirname, publicDir, '/js')));
 app.set("view engine", "ejs");
 app.set('views', path.join(__dirname, viewsDir));
 
+// Other stuff
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(cookieParser());
+
 // Setting Routes
 app.use("/", require("./routes/pages"));
 app.use("/requests", require("./routes/requests"));
 
 // ========== [Initialization] ========== \\
 // Initializing the web server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Web Server is running on port ${PORT}`));
+const port = process.env.PORT || 1803;
+app.listen(port, () => console.log(`Web Server is running on port ${port}`));

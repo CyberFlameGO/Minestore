@@ -2,6 +2,7 @@ package com.lielamar.minestore.bukkit.commands.subcommands;
 
 import com.lielamar.lielsutils.commands.Command;
 import com.lielamar.minestore.bukkit.Minestore;
+import com.lielamar.minestore.shared.modules.CustomPlayer;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -48,7 +49,12 @@ public class AuthCommand extends Command {
             return;
         }
 
-        plugin.getPlayerManager().getPlayer(((Player) commandSender).getUniqueId()).setAuthenticated(true);
-        commandSender.sendMessage(ChatColor.AQUA + "You have authenticated your current store purchase!");
+        CustomPlayer customPlayer = plugin.getPlayerHandler().getPlayer(((Player) commandSender).getUniqueId());
+        if(customPlayer != null) {
+            customPlayer.setAuthenticated(true);
+            commandSender.sendMessage(ChatColor.AQUA + "You have authenticated your current store purchase!");
+        } else {
+            commandSender.sendMessage(ChatColor.RED + "Could not authenticate your purchase!");
+        }
     }
 }

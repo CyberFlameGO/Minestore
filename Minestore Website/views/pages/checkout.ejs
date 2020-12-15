@@ -2,14 +2,14 @@
 
 <div class="container">
   <div class="banner">
-    <img src="/assets/imgs/banner.png" style="width: 100%; height: auto;">
+    <img src="/assets/imgs/supportbanner.png" style="width: 100%; height: auto;">
   </div>
 
   <br>
 
   <div class="maincontent">
     <h3>
-      Information
+      Checkout!
     </h3>
     <p>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent lacinia convallis mi ac sodales. Proin sit amet convallis lacus, at varius ante.
@@ -27,27 +27,28 @@
   <div class="toolbox" align="center">
     <div class="box" align="center">
       <a>
-        yourserver.ip
+        email@address.extension
       </a>
     </div>
   </div>
 
   <br><br>
 
-  <div class="aboutus">
-    <h3>
-      About Us
-    </h3>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent lacinia convallis mi ac sodales. Proin sit amet convallis lacus, at varius ante.
-      <br>Cras porttitor velit ante, sit amet scelerisque orci imperdiet eu. Suspendisse ac placerat purus, nec hendrerit arcu.
-      <br>Curabitur ut eleifend turpis, dictum scelerisque ligula. Donec et placerat urna.
-      <br>Donec a mi vitae elit sagittis aliquet. Duis ac metus at nulla eleifend pharetra. Aliquam sed semper nunc, non lobortis orci.
-    </p>
+  <div class="logout" align="right">
+    <form method="post" action="/requests/logout">
+      <input type="submit" id="submit" value="Log Out"></input>
+    <form>
   </div>
 
-  <br><br>
-
+  <script>
+    // Checking if the user loaded the page through history.
+    // If so, we reload the page to make sure they are 'logged in'.
+    if(performance.navigation.type == 2){
+      location.reload(true);
+    }
+  </script>
 </div>
+
+<br><br>
 
 <%- include('../partials/footer.ejs') %>

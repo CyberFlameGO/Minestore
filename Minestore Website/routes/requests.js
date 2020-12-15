@@ -3,13 +3,15 @@
 // such as: authentication, giving packages in game, etc.
 // =======================================================
 const express = require("express");
-// const requestHandler = require("../handles/requestshandler");
+const requestHandler = require("../handlers/requestshandler");
 
 // ========== [Variables] ========== \\
 const router = express.Router();
 
 // ========== [Initialization] ========== \\
-// router.post("/authentication", requestHandler.authentication);
+router.post("/authenticate", requestHandler.authenticate);
+router.post("/logout", requestHandler.logout);
+router.post("/buyitem", requestHandler.buyitem);
 // router.post("/givepackage", requestHandler.givepackage);
 
 module.exports = router;

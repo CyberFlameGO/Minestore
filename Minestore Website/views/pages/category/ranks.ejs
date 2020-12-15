@@ -1,0 +1,202 @@
+<%- include('../../partials/header.ejs') %>
+
+<div class="container">
+  <div class="catalog">
+
+    <div class ="row">
+      <div class="col-2">
+        <img src="/assets/imgs/ranks.png">
+      </div>
+      <div class="col-2">
+        <p>
+          <br>Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>Nunc sed consectetur est. Maecenas et semper quam.
+          <br>Integer eu auctor erat, in tincidunt dolor.<br>Etiam lacinia dui sed mauris scelerisque condimentum.
+          <br>Nunc egestas ligula turpis, eu mattis sapien condimentum ut.<br>Praesent luctus quis nisl nec congue.
+          <br>
+          <br>
+          <br>• Vivamus dictum lacus sem, sed commodo est vulputate a.
+          <br>• Nulla id risus nec massa malesuada iaculis laoreet sit amet velit.<br>Nulla semper dignissim velit tempus tempus.
+          <br>• Fusce ut nunc congue, molestie quam vel, rutrum nunc.<br>Ut bibendum purus quis enim posuere porta.
+          <br>• Sed congue dolor augue, vel iaculis mi pretium nec.<br>Maecenas at magna lobortis, euismod orci ac, posuere ligula.
+          <br>• Nam ullamcorper venenatis lorem, quis bibendum nunc<br>vehicula non.
+        </p>
+      </div>
+    </div>
+
+    <div class="small-container">
+      <h3>Items</h3>
+      <hr>
+      <div class="row">
+
+        <!-- VIP -->
+        <div class="col-4">
+          <div class="vip" id="vip" onclick="openPopupMenu('vip');">
+            <img src="/assets/imgs/vip.png"/>
+            <h2>VIP</h2>
+            <p>$5.00</p>
+          </div>
+        </div>
+
+        <div id="vip-popup" class="popup">
+          <div class="popup-content">
+            <div class="popup-header">
+              <span class="close" onclick="closePopupMenu('vip')">&times;</span>
+              <h2>VIP Rank Package</h2>
+            </div>
+            <div class="popup-body">
+              <p>This package is a <strong>Lifetime VIP Rank</strong>, giving in-game perks.</p>
+              <br>
+              <p>Perks:</p>
+              <ul>
+                <li>Green [VIP] tag</li>
+                <li>Ability to fly</li>
+                <li>Some more stuff 1</li>
+                <li>Some more stuff 2</li>
+                <li>Some more stuff 3</li>
+                <li>Some more stuff 4</li>
+                <li>Some more stuff 5</li>
+                <li>Some more stuff 6</li>
+              </ul>
+              <br>
+              <p>* Purchases may take up to <strong>24 hours</strong> to process</p>
+            </div>
+            <div class="popup-footer">
+              <form class="buy" method="post" action="/requests/buyitem">
+                <input type="text" id="package" name="package" value="viprank" required hidden>
+                <input type="submit" id="submit" value="Buy For $5.00"></input>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- MVP -->
+        <div class="col-4">
+          <div class="mvp" id="mvp" onclick="openPopupMenu('mvp');">
+            <img src="/assets/imgs/mvp.png"/>
+            <h2>MVP</h2>
+            <p>$10.00</p>
+          </div>
+        </div>
+
+        <div id="mvp-popup" class="popup">
+          <div class="popup-content">
+            <div class="popup-header">
+              <span class="close" onclick="closePopupMenu('mvp')">&times;</span>
+              <h2>MVP Rank Package</h2>
+            </div>
+            <div class="popup-body">
+              <p>This package is a <strong>Lifetime MVP Rank</strong>, giving in-game perks.</p>
+              <br>
+              <p>Perks:</p>
+              <ul>
+                <li>Blue [MVP] tag</li>
+                <li>All VIP Rank Perks</li>
+                <li>Some more stuff 1</li>
+                <li>Some more stuff 2</li>
+                <li>Some more stuff 3</li>
+                <li>Some more stuff 4</li>
+                <li>Some more stuff 5</li>
+                <li>Some more stuff 6</li>
+              </ul>
+              <br>
+              <p>* Purchases may take up to <strong>24 hours</strong> to process</p>
+            </div>
+            <div class="popup-footer">
+              <form class="buy" method="post" action="/requests/buyitem">
+                <input type="text" id="package" name="package" value="mvprank" required hidden>
+                <input type="submit" id="submit" value="Buy For $10.00"></input>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- KING -->
+        <div class="col-4">
+          <div class="king" id="king" onclick="openPopupMenu('king');">
+            <img src="/assets/imgs/king.png"/>
+            <h2>KING</h2>
+            <p>$15.00</p>
+          </div>
+        </div>
+
+        <div id="king-popup" class="popup">
+          <div class="popup-content">
+            <div class="popup-header">
+              <span class="close" onclick="closePopupMenu('mvp')">&times;</span>
+              <h2>King Rank Package</h2>
+            </div>
+            <div class="popup-body">
+              <p>This package is a <strong>Lifetime King Rank</strong>, giving in-game perks.</p>
+              <br>
+              <p>Perks:</p>
+              <ul>
+                <li>Yellow [King] tag</li>
+                <li>All VIP and MVP Rank Perks</li>
+                <li>Some more stuff 1</li>
+                <li>Some more stuff 2</li>
+                <li>Some more stuff 3</li>
+                <li>Some more stuff 4</li>
+                <li>Some more stuff 5</li>
+                <li>Some more stuff 6</li>
+              </ul>
+              <br>
+              <p>* Purchases may take up to <strong>24 hours</strong> to process</p>
+            </div>
+            <div class="popup-footer">
+              <form class="buy" method="post" action="/requests/buyitem">
+                <input type="text" id="package" name="package" value="kingrank" required hidden>
+                <input type="submit" id="submit" value="Buy For $15.00"></input>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- GOD -->
+        <div class="col-4">
+          <div class="god" id="god" onclick="openPopupMenu('god');">
+            <img src="/assets/imgs/god.png"/>
+            <h2>GOD</h2>
+            <p>$20.00</p>
+          </div>
+        </div>
+
+        <div id="god-popup" class="popup">
+          <div class="popup-content">
+            <div class="popup-header">
+              <span class="close" onclick="closePopupMenu('mvp')">&times;</span>
+              <h2>God Rank Package</h2>
+            </div>
+            <div class="popup-body">
+              <p>This package is a <strong>Lifetime God Rank</strong>, giving in-game perks.</p>
+              <br>
+              <p>Perks:</p>
+              <ul>
+                <li>Red [GOD] tag</li>
+                <li>All VIP, MVP and King Rank Perks</li>
+                <li>Some more stuff 1</li>
+                <li>Some more stuff 2</li>
+                <li>Some more stuff 3</li>
+                <li>Some more stuff 4</li>
+                <li>Some more stuff 5</li>
+                <li>Some more stuff 6</li>
+              </ul>
+              <br>
+              <p>* Purchases may take up to <strong>24 hours</strong> to process</p>
+            </div>
+            <div class="popup-footer">
+              <form class="buy" method="post" action="/requests/buyitem">
+                <input type="text" id="package" name="package" value="godrank" required hidden>
+                <input type="submit" id="submit" value="Buy For $20.00"></input>
+              </form>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/categoryscripts.js"></script>
+</div>
+
+<%- include('../../partials/footer.ejs') %>

@@ -1,0 +1,55 @@
+<%- include('../partials/header.ejs') %>
+
+<div class="container">
+
+  <div class="alerts" align="center">
+    <p id="alert">alert</p>
+  </div>
+
+  <div class="authentication">
+    <h2>
+      Please authenticate your identity
+    </h2>
+    <form id="authform" class="authform" align="center" method="post" action="/requests/authenticate">
+      <input type="text" id="ign" name="ign" placeholder="In Game Name" onkeypress="validate(event)" required>
+      <input type="submit" id="submit" value="Authenticate" onclick="return validateObject();" required></input>
+    </form>
+  </div>
+
+  <script>
+    loadError(document.getElementById("alert"), 0<%- error %>);
+    var clicked = false;
+
+    function validate(event) {
+      var char = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+      if(validateIgn(document.getElementById("ign").value + char))
+        return true;
+
+      event.preventDefault();
+      return false;
+    }
+
+    function validateIgn(ign) {
+      var regex = new RegExp("^[a-zA-Z0-9_]+$");
+      if(regex.test(ign) && ign.length <= 16)
+        return true;
+      return false;
+    }
+
+    function validateObject() {
+      if(clicked)     // Remove these 2 lines if you want players to be able to spam requests.
+        return false; // This is not recommended. It should not cause any problems, but it's better to avoid ;D.
+
+      var str = document.getElementById("ign").value;
+      if(!str || !validateIgn)
+        return false;
+
+      displayAlert(document.getElementById("alert"), "Please validate your purchase in-game, using the command <strong>/Minestore auth</strong>!", "#1bc700");
+      clicked = true;
+      return true;
+    }
+  </script>
+
+</div>
+
+<%- include('../partials/footer.ejs') %>

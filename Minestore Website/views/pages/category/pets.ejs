@@ -1,0 +1,125 @@
+<%- include('../../partials/header.ejs') %>
+
+<div class="container">
+  <div class="catalog">
+
+    <div class ="row">
+      <div class="col-2">
+        <img src="/assets/imgs/pets.png">
+      </div>
+      <div class="col-2">
+        <p>
+          <br>Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>Nunc sed consectetur est. Maecenas et semper quam.
+          <br>Integer eu auctor erat, in tincidunt dolor.<br>Etiam lacinia dui sed mauris scelerisque condimentum.
+          <br>Nunc egestas ligula turpis, eu mattis sapien condimentum ut.<br>Praesent luctus quis nisl nec congue.
+          <br>
+          <br>
+          <br>• Vivamus dictum lacus sem, sed commodo est vulputate a.
+          <br>• Nulla id risus nec massa malesuada iaculis laoreet sit amet velit.<br>Nulla semper dignissim velit tempus tempus.
+          <br>• Fusce ut nunc congue, molestie quam vel, rutrum nunc.<br>Ut bibendum purus quis enim posuere porta.
+          <br>• Sed congue dolor augue, vel iaculis mi pretium nec.<br>Maecenas at magna lobortis, euismod orci ac, posuere ligula.
+          <br>• Nam ullamcorper venenatis lorem, quis bibendum nunc<br>vehicula non.
+        </p>
+      </div>
+    </div>
+
+    <div class="small-container">
+      <h3>Items</h3>
+      <hr>
+      <div class="row">
+
+        <!-- Dog -->
+        <div class="col-3">
+          <div class="dog" id="dog" onclick="openPopupMenu('dog');">
+            <img src="/assets/imgs/dog.png"/>
+            <h2>Dog</h2>
+            <p>$5.00</p>
+          </div>
+        </div>
+
+        <div id="dog-popup" class="popup">
+          <div class="popup-content">
+            <div class="popup-header">
+              <span class="close" onclick="closePopupMenu('dog')">&times;</span>
+              <h2>Dog Pet</h2>
+            </div>
+            <div class="popup-body">
+              <p>This package is a <strong>Lifetime Dog Pet</strong>, given in-game.</p>
+              <br>
+              <p>* Purchases may take up to <strong>24 hours</strong> to process</p>
+            </div>
+            <div class="popup-footer">
+              <form class="buy" method="post" action="/requests/buyitem">
+                <input type="text" id="package" name="package" value="dogpet" required hidden>
+                <input type="submit" id="submit" value="Buy For $5.00"></input>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cat -->
+        <div class="col-3">
+          <div class="cat" id="cat" onclick="openPopupMenu('cat');">
+            <img src="/assets/imgs/cat.png"/>
+            <h2>Cat</h2>
+            <p>$5.00</p>
+          </div>
+        </div>
+
+        <div id="cat-popup" class="popup">
+          <div class="popup-content">
+            <div class="popup-header">
+              <span class="close" onclick="closePopupMenu('cat')">&times;</span>
+              <h2>Cat Pet</h2>
+            </div>
+            <div class="popup-body">
+              <p>This package is a <strong>Lifetime Cat Pet</strong>, given in-game.</p>
+              <br>
+              <p>* Purchases may take up to <strong>24 hours</strong> to process</p>
+            </div>
+            <div class="popup-footer">
+              <form class="buy" method="post" action="/requests/buyitem">
+                <input type="text" id="package" name="package" value="catpet" required hidden>
+                <input type="submit" id="submit" value="Buy For $5.00"></input>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Duck -->
+        <div class="col-3">
+          <div class="duck" id="duck" onclick="openPopupMenu('duck');">
+            <img src="/assets/imgs/duck.png"/>
+            <h2>Duck</h2>
+            <p>$5.00</p>
+          </div>
+        </div>
+
+        <div id="duck-popup" class="popup">
+          <div class="popup-content">
+            <div class="popup-header">
+              <span class="close" onclick="closePopupMenu('duck')">&times;</span>
+              <h2>Duck Pet</h2>
+            </div>
+            <div class="popup-body">
+              <p>This package is a <strong>Lifetime Duck Pet</strong>, given in-game.</p>
+              <br>
+              <p>* Purchases may take up to <strong>24 hours</strong> to process</p>
+            </div>
+            <div class="popup-footer">
+              <form class="buy" method="post" action="/requests/buyitem">
+                <input type="text" id="package" name="package" value="duckpet" required hidden>
+                <input type="submit" id="submit" value="Buy For $5.00"></input>
+              </form>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/categoryscripts.js"></script>
+</div>
+
+<%- include('../../partials/footer.ejs') %>

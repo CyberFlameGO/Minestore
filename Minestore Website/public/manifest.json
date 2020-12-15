@@ -1,0 +1,9 @@
+{
+  "name": "Minestore",
+  "short_name": "Minestore",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": "A Proof of Concept Minecraft Store Plugin & Website",
+  "icons": []
+}
