@@ -72,6 +72,15 @@ header::after {
 }
 
 
+.container .alerts {
+  width: 50%;
+  margin: 0 auto;
+  color: red;
+  font-size: 20px;
+  margin-top: 5rem;
+}
+
+
 .container .maincontent {
   width: 50%;
   margin: 0 auto;
@@ -86,16 +95,8 @@ header::after {
 }
 
 
-.container .alerts {
-  width: 50%;
-  margin: 0 auto;
-  color: red;
-  font-size: 20px;
-  margin-top: 5rem;
-}
-
-
-.container .toolbox .box a {
+.container .toolbox .box a,
+.container .logout input[type="submit"] {
 	margin: auto;
   width: 10%;
   height: 10%;
@@ -112,6 +113,14 @@ header::after {
   transition: 0.3s;
 }
 
+.container .logout input[type="submit"] {
+  background: #4CAF50;
+  margin-right: 5rem;
+}
+
+.container .logout input[type="submit"]:hover {
+  background: #45a049;
+}
 
 .container .aboutus {
   width: 50%;
@@ -145,7 +154,8 @@ header::after {
   box-sizing: border-box;
 }
 
-.container .authentication .authform input[type="submit"], button {
+.container .authentication .authform input[type="submit"],
+.container .authentication .authform button {
   width: 30%;
   background-color: #4CAF50;
   color: white;
@@ -157,8 +167,220 @@ header::after {
   float: right;
 }
 
-.container .authentication .authentication input[type="submit"], button:hover {
+.container .authentication .authentication input[type="submit"]:hover,
+.container .authentication .authform button:hover {
   background-color: #45a049;
+}
+
+
+.container .catalog {
+  margin: auto;
+  width: 70%;
+}
+
+/* .container .catalog .banner {
+  display: inline-block;
+  margin: 2rem;
+}
+
+.container .catalog .banner img {
+  display: block;
+  width: 25%;
+  height: auto;
+  float: left;
+}
+
+.container .catalog .banner p {
+  height: 70%;
+  white-space: nowrap;
+  text-align: left;
+  display: block;
+  float: right;
+}
+
+.container .catalog .items {
+  color: #8c8c8c;
+  text-transform: uppercase;
+}
+
+.container .catalog .small-container {
+
+} */
+
+.container .catalog hr {
+  margin: auto;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+
+  border: 1px solid rgba(155,155,155,0.6);
+  border-radius: 5px;
+  width: 100%;
+}
+
+.container .catalog .row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.container .catalog .col-2 {
+  flex-basis: 50%;
+}
+
+.container .catalog .col-2 p {
+  float: right;
+  margin-left: 5rem;
+  white-space: nowrap;
+  font-size: 18px;
+}
+
+.container .catalog .col-2 img {
+  float: left;
+  max-width: 80%;
+  max-height: 80%;
+  padding: 1rem 0;
+  margin-right: 5rem;
+}
+
+.container .catalog .small-container {
+  margin: auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.container .catalog .col-3 {
+  flex-basis: 30%;
+  padding: 1rem;
+  margin-bottom: 3rem;
+  transition: transform 0.5s;
+}
+
+.container .catalog .col-4 {
+  flex-basis: 20%;
+  padding: 1rem;
+  margin-bottom: 3rem;
+  transition: transform 0.5s;
+}
+
+
+.container .catalog .col-3:hover,
+.container .catalog .col-4:hover {
+  transform: translateY(-1rem);
+  cursor: pointer;
+}
+
+.container .catalog .col-3 img,
+.container .catalog .col-4 img {
+  width: 100%;
+}
+
+.container .catalog .col-3 h2,
+.container .catalog .col-4 h2 {
+  margin-top: 2rem;
+}
+
+.container .catalog .col-3 p,
+.container .catalog .col-4 p {
+  font-size: 16px;
+}
+
+
+.popup {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 10rem;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+}
+
+.popup .popup-content {
+  position: relative;
+  background-color: #fff;
+  color: #000;
+  margin: auto;
+  padding: 0;
+  width: 50%;
+  border-radius: 16px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.5s;
+  animation-name: animatetop;
+  animation-duration: 0.5s
+}
+
+@-webkit-keyframes animatetop {
+  from { top:-300px; opacity:0 }
+  to { top:0; opacity:1 }
+}
+
+@keyframes animatetop {
+  from { top:-300px; opacity:0 }
+  to { top:0; opacity:1 }
+}
+
+.popup .popup-content .popup-header {
+  padding: 2vh;
+  border-top-left-radius: 14px 14px;
+  border-top-right-radius: 14px 14px;
+  border-bottom: 1px solid rgba(155,155,155,0.3);
+}
+
+.popup .popup-content .popup-header .close {
+  color: #000;
+  transition: color 0.25s;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.popup .popup-content .popup-header .close:hover,
+.popup .popup-content .popup-header .close:focus {
+  color: red;
+  transition: color 0.25s;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.popup .popup-content .popup-body {
+  padding: 2vh 2rem;
+}
+
+.popup .popup-content .popup-body ul {
+  margin-left: 2rem;
+}
+
+.popup .popup-content .popup-footer {
+  border-top-left-radius: 14px 14px;
+  border-top-right-radius: 14px 14px;
+  border-top: 1px solid rgba(155,155,155,0.3);
+}
+
+.popup .popup-content .popup-footer {
+  padding: 2vh;
+}
+
+.popup .popup-content .popup-footer input[type="submit"] {
+  border-radius: 5px;
+  padding: 0.5rem;
+  margin: 1rem;
+  color: #fff;
+  background-color: #43c928;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2),0 3px 10px 0 rgba(0,0,0,0.19);
+  transition: 0.25s;
+}
+
+.popup .popup-content .popup-footer input[type="submit"]:hover,
+.popup .popup-content .popup-footer input[type="submit"]:focus {
+  background-color: #32a31c;
+  transition: 0.25s;
+  cursor: pointer;
 }
 
 
@@ -274,7 +496,18 @@ header::after {
   margin-left: 10rem;
 }
 
+@media screen and (max-width: 1500px) {
+  .container .catalog .col-2 img {
+    width: 80%;
+  }
+}
+
 @media screen and (max-width: 1150px) {
+  .container .catalog .col-2 p {
+    font-size: 14px;
+  }
+
+
   .footer {
       padding-left: 5rem;
   }

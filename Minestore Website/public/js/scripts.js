@@ -4,19 +4,21 @@ function loadError(element, errorId) {
 
 	switch(errorId) {
 		case 1:
-			console.log("error is 1");
 			element.innerHTML = "Please fill all of the required fields before continuing!";
 			element.style.color = "red";
 			element.style.display = "block";
 			break;
 		case 2:
-			console.log("error is 2");
-			element.innerHTML = "The authentication status received was not valid. Please authenticate again!";
+			element.innerHTML = "This Minecraft username does not exist!";
 			element.style.color = "red";
 			element.style.display = "block";
 			break;
 		case 3:
-			console.log("error is 3");
+			element.innerHTML = "The authentication status received was not valid. Please authenticate again!";
+			element.style.color = "red";
+			element.style.display = "block";
+			break;
+		case 4:
 			element.innerHTML = "Could not connect to the Minecraft Server!";
 			element.style.color = "red";
 			element.style.display = "block";
@@ -33,4 +35,5 @@ function displayAlert(element, message, color) {
 
 	element.innerHTML = message;
 	element.style.color = color;
+	element.style.display = "block";
 }

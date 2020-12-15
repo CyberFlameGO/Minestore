@@ -1,3 +1,124 @@
 <%- include('../../partials/header.ejs') %>
 
+<div class="container">
+  <div class="catalog">
+
+    <div class ="row">
+      <div class="col-2">
+        <img src="/assets/imgs/coins.png">
+      </div>
+      <div class="col-2">
+        <p>
+          <br>Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>Nunc sed consectetur est. Maecenas et semper quam.
+          <br>Integer eu auctor erat, in tincidunt dolor.<br>Etiam lacinia dui sed mauris scelerisque condimentum.
+          <br>Nunc egestas ligula turpis, eu mattis sapien condimentum ut.<br>Praesent luctus quis nisl nec congue.
+          <br>
+          <br>
+          <br>• Vivamus dictum lacus sem, sed commodo est vulputate a.
+          <br>• Nulla id risus nec massa malesuada iaculis laoreet sit amet velit.<br>Nulla semper dignissim velit tempus tempus.
+          <br>• Fusce ut nunc congue, molestie quam vel, rutrum nunc.<br>Ut bibendum purus quis enim posuere porta.
+          <br>• Sed congue dolor augue, vel iaculis mi pretium nec.<br>Maecenas at magna lobortis, euismod orci ac, posuere ligula.
+          <br>• Nam ullamcorper venenatis lorem, quis bibendum nunc<br>vehicula non.
+        </p>
+      </div>
+    </div>
+
+    <div class="small-container">
+      <h3>Items</h3>
+      <hr>
+      <div class="row">
+
+        <!-- Small Bag -->
+        <div class="col-3">
+          <div class="smallbag" id="smallbag" onclick="openPopupMenu('smallbag');">
+            <img src="/assets/imgs/smallbag.png"/>
+            <h2>500 In-Game Coins</h2>
+            <p>$5.00</p>
+          </div>
+        </div>
+
+        <div id="smallbag-popup" class="popup">
+          <div class="popup-content">
+            <div class="popup-header">
+              <span class="close" onclick="closePopupMenu('smallbag')">&times;</span>
+              <h2>500 In-Game Coins</h2>
+            </div>
+            <div class="popup-body">
+              <p>This package is a <strong>Small Bag of Coins</strong>, given in-game.</p>
+              <br>
+              <p>* Purchases may take up to <strong>24 hours</strong> to process</p>
+            </div>
+            <div class="popup-footer">
+              <form class="buy" method="post" action="/requests/buyitem">
+                <input type="text" id="package" name="package" value="smallbagcoins" required hidden>
+                <input type="submit" id="submit" value="Buy For $5.00"></input>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Medium Bag -->
+        <div class="col-3">
+          <div class="mediumbag" id="mediumbag" onclick="openPopupMenu('mediumbag');">
+            <img src="/assets/imgs/mediumbag.png"/>
+            <h2>1,000 In-Game Coins</h2>
+            <p>$10.00</p>
+          </div>
+        </div>
+
+        <div id="mediumbag-popup" class="popup">
+          <div class="popup-content">
+            <div class="popup-header">
+              <span class="close" onclick="closePopupMenu('mediumbag')">&times;</span>
+              <h2>1,000 In-Game Coins</h2>
+            </div>
+            <div class="popup-body">
+              <p>This package is a <strong>Medium Bag of Coins</strong>, given in-game.</p>
+              <br>
+              <p>* Purchases may take up to <strong>24 hours</strong> to process</p>
+            </div>
+            <div class="popup-footer">
+              <form class="buy" method="post" action="/requests/buyitem">
+                <input type="text" id="package" name="package" value="mediumbagcoins" required hidden>
+                <input type="submit" id="submit" value="Buy For $10.00"></input>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Big Bag -->
+        <div class="col-3">
+          <div class="bigbag" id="bigbag" onclick="openPopupMenu('bigbag');">
+            <img src="/assets/imgs/bigbag.png"/>
+            <h2>2,000 In-Game Coins</h2>
+            <p>$20.00</p>
+          </div>
+        </div>
+
+        <div id="bigbag-popup" class="popup">
+          <div class="popup-content">
+            <div class="popup-header">
+              <span class="close" onclick="closePopupMenu('bigbag')">&times;</span>
+              <h2>2,000 In-Game Coins</h2>
+            </div>
+            <div class="popup-body">
+              <p>This package is a <strong>Big Bag of Coins</strong>, given in-game.</p>
+              <br>
+              <p>* Purchases may take up to <strong>24 hours</strong> to process</p>
+            </div>
+            <div class="popup-footer">
+              <form class="buy" method="post" action="/requests/buyitem">
+                <input type="text" id="package" name="package" value="bigbagcoins" required hidden>
+                <input type="submit" id="submit" value="Buy For $20.00"></input>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/categoryscripts.js"></script>
+</div>
+
 <%- include('../../partials/footer.ejs') %>

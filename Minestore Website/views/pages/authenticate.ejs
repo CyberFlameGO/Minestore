@@ -18,6 +18,7 @@
 
   <script>
     loadError(document.getElementById("alert"), 0<%- error %>);
+    var clicked = false;
 
     function validate(event) {
       var char = String.fromCharCode(!event.charCode ? event.which : event.charCode);
@@ -36,11 +37,15 @@
     }
 
     function validateObject() {
+      if(clicked)     // Remove these 2 lines if you want players to be able to spam requests.
+        return false; // This is not recommended. It should not cause any problems, but it's better to avoid ;D.
+
       var str = document.getElementById("ign").value;
       if(!str || !validateIgn)
         return false;
 
-      displayAlert(document.getElementById("alert"), "Please validate your purchase in-game, using /Minestore auth!", "#1bc700");
+      displayAlert(document.getElementById("alert"), "Please validate your purchase in-game, using the command <strong>/Minestore auth</strong>!", "#1bc700");
+      clicked = true;
       return true;
     }
   </script>

@@ -34,6 +34,21 @@
 
   <br><br>
 
+  <div class="logout" align="right">
+    <form method="post" action="/requests/logout">
+      <input type="submit" id="submit" value="Log Out"></input>
+    <form>
+  </div>
+
+  <script>
+    // Checking if the user loaded the page through history.
+    // If so, we reload the page to make sure they are 'logged in'.
+    if(performance.navigation.type == 2){
+      location.reload(true);
+    }
+  </script>
 </div>
+
+<br><br>
 
 <%- include('../partials/footer.ejs') %>

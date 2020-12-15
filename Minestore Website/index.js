@@ -2,12 +2,15 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const dotenv = require('dotenv');
 
 // ========== [Variables] ========== \\
 const app = express();
 
 const publicDir = '/public';
 const viewsDir = '/views';
+
+dotenv.config({ path: "./.env"});
 
 // ========== [Set-ups] ========== \\
 // Setting Static Files
@@ -32,5 +35,5 @@ app.use("/requests", require("./routes/requests"));
 
 // ========== [Initialization] ========== \\
 // Initializing the web server
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 1803;
 app.listen(port, () => console.log(`Web Server is running on port ${port}`));

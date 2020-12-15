@@ -10,7 +10,7 @@ public class TestsSocketServerHandler {
 
     public static void main(String[] args) {
         try {
-            new TestsSocketServerHandler(5001);
+            new TestsSocketServerHandler(1804);
         } catch (IOException | JSONException exception) {
             exception.printStackTrace();
         }
