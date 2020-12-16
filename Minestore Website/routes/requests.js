@@ -11,7 +11,9 @@ const router = express.Router();
 // ========== [Initialization] ========== \\
 router.post("/authenticate", requestHandler.authenticate);
 router.post("/logout", requestHandler.logout);
-router.post("/buyitem", requestHandler.buyitem);
+router.post("/savecart", requestHandler.savecart);
+router.post("/checkout", requestHandler.checkout);
+router.get("/confirmpurchase", requestHandler.confirmpurchase);
 // router.post("/givepackage", requestHandler.givepackage);
 
 module.exports = router;

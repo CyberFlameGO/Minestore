@@ -1,7 +1,6 @@
 <%- include('../partials/header.ejs') %>
 
 <div class="container">
-
   <div class="alerts" align="center">
     <p id="alert">alert</p>
   </div>
@@ -10,6 +9,7 @@
     <h2>
       Please authenticate your identity
     </h2>
+
     <form id="authform" class="authform" align="center" method="post" action="/requests/authenticate">
       <input type="text" id="ign" name="ign" placeholder="In Game Name" onkeypress="validate(event)" required>
       <input type="submit" id="submit" value="Authenticate" onclick="return validateObject();" required></input>
@@ -17,7 +17,7 @@
   </div>
 
   <script>
-    loadError(document.getElementById("alert"), 0<%- error %>);
+    loadError(document.getElementById("alert"), 0<%- error%>);
     var clicked = false;
 
     function validate(event) {

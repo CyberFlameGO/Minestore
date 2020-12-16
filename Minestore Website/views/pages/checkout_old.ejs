@@ -39,9 +39,7 @@
     <div class="col-md-8 order-md-1">
       <h4 class="mb-3">Billing address</h4>
 
-      <form id="checkout-form" class="needs-validation" onsubmit="return validate()" action="/requests/checkout" method="post">
-        <input type="hidden" id="package_id" name="package_id" />
-
+      <form id="checkout-form" class="needs-validation" onsubmit="return validate()" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
         <div class="row">
           <div class="col-md-6 mb-3" style="margin-bottom: 1rem;">
             <label for="full_name">FULL NAME</label>
@@ -85,7 +83,7 @@
         <div class="row">
           <div class="form-group col-md-4" style="margin-bottom: 3rem;">
             <label for="inputState">State</label>
-            <select id="inputState" class="form-control" name="country" required>
+            <select id="inputState" class="form-control" required>
               <option value="">Choose...</option>
               <option value="Afganistan">Afghanistan</option>
               <option value="Albania">Albania</option>
@@ -346,7 +344,11 @@
 
         <hr class="mb-4">
 
-        <input type="submit" id="submit" value="Pay Now"></input>
+        <div id="smart-button-container">
+          <div style="text-align: center;">
+            <div id="paypal-button-container"></div>
+          </div>
+        </div>
       </form>
     </div>
   </div>
@@ -360,8 +362,6 @@
     if(performance.navigation.type == 2) {
       location.reload(true);
     }
-
-    document.getElementById("package_id").value = "<%-package.package_id %>";
 
     function validate() {
       var full_name = document.getElementById("full_name");
@@ -391,6 +391,42 @@
 
       return true;
     }
+  </script>
+
+  <!-- <script src="https://www.paypal.com/sdk/js?client-id=REPLACE_WITH_YOUR_CLIENT_ID" data-sdk-integration-source="button-factory"></script> -->
+  <script src="https://www.paypal.com/sdk/js?client-id=AQjowo7MNT3jJT_VM-060xIBpfgWAGtVhSdBrM4NGOfw9Y9o_P9Xm7TtEZtYr35YUeH7UjMDmIHZqSWh" data-sdk-integration-source="button-factory"></script>
+  <script>
+    function initPayPalButton() {
+      paypal.Buttons({
+        style: {
+          shape: 'rect',
+          color: 'gold',
+          layout: 'vertical',
+          label: 'paypal',
+        },
+
+        createOrder: function(data, actions) {
+          return actions.order.create({
+            purchase_units: [{ "description":"<%- package.package_description%>", "amount":{ "currency_code":"USD","value": <%- package.package_price%> } }]
+          });
+        },
+
+        onApprove: function(data, actions) {
+          return actions.order.capture().then(function(details) {
+            console.log(details);
+
+            console.log("encrypting. " + <%- secret_key.public%>)
+            // Send packet with package.commands at package.server to player.ign
+
+          });
+        },
+
+        onError: function(err) {
+          console.log(err);
+        }
+      }).render('#paypal-button-container');
+    }
+    initPayPalButton();
   </script>
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">

@@ -20,6 +20,9 @@ MySQL:
       username: "changeme"
       password: "changeme"
 
+# IP of the webserver
+Web Server IP: "localhost"
+
 # Your In-game Server information
 Socket Server:
   port: 1803

@@ -5,7 +5,7 @@ const request = require('request');
  * with the given username exists.
  * The function then calls the callback function.
  */
-async function isUserExists(username, callback) {
+async function userExists(username, callback) {
   if(typeof username !== "string")
     return callback(new Error('username is not a string'));
 
@@ -26,4 +26,4 @@ async function get(url, callback) {
   });
 }
 
-exports.isUserExists = isUserExists;
+exports.userExists = userExists;

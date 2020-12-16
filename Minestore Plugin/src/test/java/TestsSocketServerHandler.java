@@ -37,7 +37,6 @@ public class TestsSocketServerHandler {
 
             System.out.println("CLIENT: " + request.toString());
             System.out.println("DEBUG: " + request.getInt("protocol_version"));
-            System.out.println("DEBUG: " + request.getJSONObject("data").getString("player_name"));
 
             for(int i = 0; i < 5; i++) {
                 try {
@@ -48,23 +47,28 @@ public class TestsSocketServerHandler {
                 }
             }
 
-            // Preparing the response
-            JSONObject response = new JSONObject();
-            response.put("protocol_version",1);
-            response.put("request_id", 2);
-            JSONObject response_data = new JSONObject();
+            int protocolVersion = request.getInt("protocol_version");
+            int requestId = request.getInt("request_id");
+            if(requestId == 0) {
+                JSONObject response = new JSONObject();
+                response.put("protocol_version", protocolVersion);
+                response.put("request_id", requestId);
 
-            if(request.getJSONObject("data").getString("player_name").equalsIgnoreCase("LielAmar"))
-                response_data.put("authenticated", true);
-            else
-                response_data.put("authenticated", false);
-            response.put("data", response_data);
+                JSONObject response_data = new JSONObject();
+                if(request.getJSONObject("data").getString("player_name").equalsIgnoreCase("LielAmar"))
+                    response_data.put("authenticated", true);
+                else
+                    response_data.put("authenticated", false);
+                response.put("data", response_data);
 
-            // Sending a response
-            OutputStream outputStream = socket.getOutputStream();
-            sendResponse(outputStream, response);
+                // Sending a response
+                OutputStream outputStream = socket.getOutputStream();
+                sendResponse(outputStream, response);
 
-            System.out.println("SERVER: " + response.toString());
+                System.out.println("SERVER: " + response.toString());
+            } else if(requestId == 1) {
+                System.out.println("SERVER: Received a request with id 1!");
+            }
 
             // Closing the socket
             socket.close();
