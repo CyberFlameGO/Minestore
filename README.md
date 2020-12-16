@@ -26,13 +26,13 @@ This source-code is a structure, a point to start off, a framework for other dev
 
 
 ## What's next?
-• Add Bungeecord Support (including handling per-server commands)
-• Adding an option to turn debug messages on and off to avoid console spam
-• Make the plugin fully customizable textwise
-• Switching to SLL Socket Communication
-• Add Sponge Support(?)
-• Add MongoDB Support(?)
-• Make cleaner code with notes
+* Add Bungeecord Support (including handling per-server commands)
+* Adding an option to turn debug messages on and off to avoid console spam
+* Make the plugin fully customizable textwise
+* Switching to SLL Socket Communication
+* Add Sponge Support(?)
+* Add MongoDB Support(?)
+* Make cleaner code with notes
 
 ## Using Liel's Minestore
 You are not allowed to use this code without asking for permissions.
