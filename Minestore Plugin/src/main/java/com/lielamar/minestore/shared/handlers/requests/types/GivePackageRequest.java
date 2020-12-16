@@ -5,12 +5,14 @@ import com.lielamar.minestore.shared.modules.MinestorePlugin;
 import org.json.JSONObject;
 
 import java.net.Socket;
+import java.util.Map;
 
 public abstract class GivePackageRequest extends Request {
 
-    private String targetPlayer;
-    private int packageId;
-    private int transactionId;
+    protected String playerIGN;
+    protected String packageName;
+
+    private String purchaseId;
 
     public GivePackageRequest(MinestorePlugin plugin, Socket socket, int protocolVersion, int requestId, JSONObject data) {
         super(plugin, socket, protocolVersion, requestId, data);
@@ -22,18 +24,27 @@ public abstract class GivePackageRequest extends Request {
     public void loadRequestByVersion() {
         switch(getProtocolVersion()) {
             default:
-                targetPlayer = getData().getString("player_name");
-                packageId = getData().getInt("package_id");
-                transactionId = getData().getInt("transaction_id");
+                purchaseId = getData().getString("purchase_id");
                 break;
         }
     }
 
     @Override
     public void runRequest() {
-        // TODO:
-        // Write this method
+        int received_package = getPlugin().getStorageHandler().receivedPackage(purchaseId);
+        if(received_package != 0)
+            return;
+
+        String packageId = getPlugin().getStorageHandler().getPackageId(purchaseId);
+        this.playerIGN = getPlugin().getStorageHandler().getBuyerIGN(purchaseId);
+        this.packageName = getPlugin().getStorageHandler().getPackageName(packageId);
+        Map<String, String> commandServer = getPlugin().getStorageHandler().getCommandsOfPackage(packageId);
+
+        giveItems(commandServer);
 
         closeRequest();
     }
+
+    public abstract void giveItems(Map<String, String> commandServer);
+    public abstract void executeCommand(String command, String server);
 }

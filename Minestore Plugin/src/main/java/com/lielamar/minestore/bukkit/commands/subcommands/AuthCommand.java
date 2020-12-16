@@ -52,7 +52,7 @@ public class AuthCommand extends Command {
         CustomPlayer customPlayer = plugin.getPlayerHandler().getPlayer(((Player) commandSender).getUniqueId());
         if(customPlayer != null) {
             customPlayer.setAuthenticated(true);
-            commandSender.sendMessage(ChatColor.AQUA + "You have authenticated your current store purchase!");
+            commandSender.sendMessage(ChatColor.AQUA + "Trying to authenticate your purchase...");
         } else {
             commandSender.sendMessage(ChatColor.RED + "Could not authenticate your purchase!");
         }

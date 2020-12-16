@@ -56,4 +56,15 @@ public class BukkitAuthenticationRequest extends AuthenticationRequest {
         if(targetPlayer != null)
             targetPlayer.sendMessage(ChatColor.GRAY + "[STORE] " + ChatColor.AQUA + "You have authenticated your purchase!");
     }
+
+    /**
+     * Sends a message to the target player
+     *
+     * @param targetPlayer   Target player to send message to
+     * @param message        Message to send
+     */
+    @Override
+    public void sendMessage(Object targetPlayer, String message) {
+        ((Player)targetPlayer).sendMessage(message);
+    }
 }

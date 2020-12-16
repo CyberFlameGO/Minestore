@@ -81,10 +81,11 @@ public abstract class RequestHandler {
         if(key == null)
             return new JSONObject(message.toString());
         else {
-            String decrypted = AES.decrypt(message.toString(), key.getKey());
-            if(decrypted != null)
-                return new JSONObject(decrypted);
-            return null;
+//            String decrypted = AES.decrypt(message.toString(), key.getKey());
+            String decrypted = message.toString();
+//            if(decrypted != null)
+            return new JSONObject(decrypted);
+//            return null;
         }
     }
 
@@ -104,7 +105,8 @@ public abstract class RequestHandler {
         if(key == null) {
             bos.write(response.toString().getBytes(StandardCharsets.UTF_8));
         } else {
-            String encrypted = AES.encrypt(response.toString(), key.getKey());
+//            String encrypted = AES.encrypt(response.toString(), key.getKey());
+            String encrypted = response.toString();
             if(encrypted != null)
                 bos.write(encrypted.getBytes(StandardCharsets.UTF_8));
         }

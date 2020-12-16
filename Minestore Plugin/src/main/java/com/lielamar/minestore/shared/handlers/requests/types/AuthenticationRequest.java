@@ -1,5 +1,6 @@
 package com.lielamar.minestore.shared.handlers.requests.types;
 
+import com.lielamar.lielsutils.SpigotUtils;
 import com.lielamar.minestore.bukkit.handlers.BukkitRequestHandler;
 import com.lielamar.minestore.shared.handlers.requests.Request;
 import com.lielamar.minestore.shared.modules.CustomPlayer;
@@ -16,7 +17,10 @@ import java.util.UUID;
 public abstract class AuthenticationRequest extends Request {
 
     private final Timer timer;
+    private String playerName;
     private UUID playerUUID;
+
+    private TimerTask task;
 
     public AuthenticationRequest(MinestorePlugin plugin, Socket socket, int protocolVersion, int requestId, JSONObject data) {
         super(plugin, socket, protocolVersion, requestId, data);
@@ -26,25 +30,37 @@ public abstract class AuthenticationRequest extends Request {
     }
 
     @Override
+    public void closeRequest() {
+        super.closeRequest();
+
+        if(task != null) {
+            task.cancel();
+            task = null;
+        }
+    }
+
+    @Override
     public void loadRequestByVersion() {
         switch(getProtocolVersion()) {
             default:
-                playerUUID = UUID.fromString(getData().getString("player_uuid"));
+                playerName = getData().getString("player_name");
+                playerUUID = UUID.fromString(SpigotUtils.fixUUID(getData().getString("player_uuid")));
                 break;
         }
     }
 
     @Override
     public void runRequest() {
-        Object targetPlayer = preTimer(playerUUID);
+        this.task = new TimerTask() {
 
-        TimerTask task = new TimerTask() {
+            Object targetPlayer = preTimer(playerUUID);
             CustomPlayer customPlayer = null;
+
             int time = 300;
 
             @Override
             public void run() {
-                if(time <= 0) {
+                if(time <= 0 || getSocket().isClosed()) {
                     this.cancel();
 
                     getPlugin().getRequestHandler().removeRequest(AuthenticationRequest.this);
@@ -54,26 +70,30 @@ public abstract class AuthenticationRequest extends Request {
                 this.time--;
 
                 if(targetPlayer != null) {
-                    if(customPlayer == null)
+                    if(customPlayer == null) {
                         customPlayer = loadCustomPlayer(playerUUID);
+                    } else {
+                        if(customPlayer.hasAuthenticated()) {
+                            try {
+                                JSONObject response = buildResponse(getProtocolVersion(), getRequestId(), true);
+                                BukkitRequestHandler.sendJSONToSocket(getSocket(), getPlugin().getEncryptionKey(), response);
+                                sendMessage(targetPlayer, "§bYou have authenticated your current store purchase!");
 
-                    if(customPlayer.hasAuthenticated()) {
-                        try {
-                            JSONObject response = buildResponse(getProtocolVersion(), getRequestId(), true);
-                            BukkitRequestHandler.sendJSONToSocket(getSocket(), getPlugin().getEncryptionKey(), response);
+                                // Resetting the player & letting them know
+                                customPlayer.setAuthenticated(false);
+                                postTimer(playerUUID);
 
-                            // Resetting the player & letting them know
-                            customPlayer.setAuthenticated(false);
-                            postTimer(playerUUID);
-
-                            // Canceling the timer
-                            closeRequest();
-                            timer.cancel();
-                            cancel();
-                        } catch(IOException exception) {
-                            exception.printStackTrace();
+                                // Canceling the timer
+                                closeRequest();
+                                timer.cancel();
+                                cancel();
+                            } catch(IOException exception) {
+                                exception.printStackTrace();
+                            }
                         }
                     }
+                } else {
+                    targetPlayer = preTimer(playerUUID);
                 }
             }
         };
@@ -110,6 +130,7 @@ public abstract class AuthenticationRequest extends Request {
     @Nullable
     public CustomPlayer loadCustomPlayer(UUID uuid) {
         CustomPlayer customPlayer = getPlugin().getPlayerHandler().getPlayer(uuid);
+
         if(customPlayer != null)
             customPlayer.setAuthenticated(false);
 
@@ -120,4 +141,5 @@ public abstract class AuthenticationRequest extends Request {
     @Nullable
     public abstract Object preTimer(UUID uuid);
     public abstract void postTimer(UUID uuid);
+    public abstract void sendMessage(Object targetPlayer, String message);
 }
