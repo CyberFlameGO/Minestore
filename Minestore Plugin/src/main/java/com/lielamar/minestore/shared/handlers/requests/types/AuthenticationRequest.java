@@ -5,7 +5,6 @@ import com.lielamar.minestore.bukkit.handlers.BukkitRequestHandler;
 import com.lielamar.minestore.shared.handlers.requests.Request;
 import com.lielamar.minestore.shared.modules.CustomPlayer;
 import com.lielamar.minestore.shared.modules.MinestorePlugin;
-import org.bukkit.Bukkit;
 import org.json.JSONObject;
 
 import javax.annotation.Nullable;

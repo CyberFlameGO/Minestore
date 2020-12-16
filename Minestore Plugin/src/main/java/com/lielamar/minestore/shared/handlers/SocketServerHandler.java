@@ -1,7 +1,5 @@
 package com.lielamar.minestore.shared.handlers;
 
-import javax.net.ssl.SSLServerSocket;
-import javax.net.ssl.SSLServerSocketFactory;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -12,7 +10,7 @@ public class SocketServerHandler {
     private final int port;
     private final RequestHandler requestHandler;
 
-    private SSLServerSocket serverSocket;
+    private ServerSocket serverSocket;
 
     public SocketServerHandler(int port, RequestHandler requestHandler) {
         this.port = port;
@@ -28,8 +26,7 @@ public class SocketServerHandler {
     }
 
     private void listen() throws IOException {
-        SSLServerSocketFactory sslssf = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
-        this.serverSocket = (SSLServerSocket) sslssf.createServerSocket(port,15);
+        this.serverSocket = new ServerSocket(port);
 
         System.out.println("[Minestore Debug] Running ServerSocket on port " + port);
 
@@ -55,7 +52,7 @@ public class SocketServerHandler {
         }
     }
 
-    public SSLServerSocket getServerSocket() {
+    public ServerSocket getServerSocket() {
         return this.serverSocket;
     }
 }

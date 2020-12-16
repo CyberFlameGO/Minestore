@@ -1,36 +1,42 @@
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import javax.net.ssl.*;
 import java.io.*;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.security.KeyStore;
 
 public class TestsSocketServerHandler {
 
     public static void main(String[] args) {
         try {
+//            KeyStore key = KeyMaster.getFromPath(".\\cssl.pfx", "PKCS12", "123");
+//            SSLServerSocketFactory fac = KeyMaster.getSSLServerSocketFactory(key, "TLS");
+//            listener = KeyMaster.getSSLServerSocket(fac, 49015);
+
+//            System.setProperties(javax.net.ssl.keyStore ssl.key);
+//            System.setPropertiesjavax.net.ssl.keyStorePassword P@ssw0rd!);
+
+            System.setProperty("javax.net.ssl.trustStore", "za.store");
+            System.setProperty("javax.net.ssl.keyStorePassword", "123456");
+            System.setProperty("javax.net.ssl.keyStore", "D:\\Workspace\\Minestore\\Minestore Plugin\\src\\main\\resources\\key.keystore");
+
             new TestsSocketServerHandler(1804);
         } catch (IOException | JSONException exception) {
             exception.printStackTrace();
         }
     }
 
-    private ServerSocket serverSocket;
+    private SSLServerSocket serverSocket;
 
     public TestsSocketServerHandler(int port) throws IOException, JSONException {
-        this.serverSocket = new ServerSocket(port);
+//        this.serverSocket = new ServerSocket(port);
+        SSLServerSocketFactory sslssf = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
+        this.serverSocket = (SSLServerSocket) sslssf.createServerSocket(port,15);
         System.out.println("Server is listening on port " + port);
 
-        listen2();
-    }
-
-    private void listen2() throws IOException{
-//        serverSocket.close();
-        System.out.println("Server is closed");
-
-        this.serverSocket = new ServerSocket(1804);
-        System.out.println("Server is listening on port " + 1804);
+        listen();
     }
 
     @SuppressWarnings("InfiniteLoopStatement")
@@ -99,5 +105,72 @@ public class TestsSocketServerHandler {
         bos.write(response.toString().getBytes(StandardCharsets.UTF_8));
 
         bos.flush();
+    }
+
+
+
+    public static class KeyMaster {
+        public static SSLSocketFactory getSSLSocketFactory(KeyStore trustKey, String sslAlgorithm) {
+            try {
+                TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+                tmf.init(trustKey);
+
+                SSLContext context = SSLContext.getInstance(sslAlgorithm);//"SSL" "TLS"
+                context.init(null, tmf.getTrustManagers(), null);
+
+                return context.getSocketFactory();
+            } catch (Exception e) {
+                System.out.println("Err: getSSLSocketFactory(), ");
+            }
+
+            return null;
+        }
+
+        public static SSLServerSocketFactory getSSLServerSocketFactory(KeyStore trustKey, String sslAlgorithm) {
+            try {
+                TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+                tmf.init(trustKey);
+
+                SSLContext context = SSLContext.getInstance(sslAlgorithm);//"SSL" "TLS"
+                context.init(null, tmf.getTrustManagers(), null);
+
+                return context.getServerSocketFactory();
+            } catch (Exception e) {
+                System.out.println("Err: getSSLSocketFactory(), ");
+            }
+
+            return null;
+        }
+
+        public static SSLServerSocket getSSLServerSocket(SSLServerSocketFactory socketFactory, int port) {
+            try {
+                return (SSLServerSocket) socketFactory.createServerSocket(port);
+            } catch (Exception e) {
+                System.out.println("Err: getSSLSocket(), ");
+            }
+
+            return null;
+        }
+
+        public static KeyStore getFromPath(String path, String algorithm, String filePassword)//PKSC12
+        {
+            try {
+                File f = new File(path);
+
+                if (!f.exists())
+                    throw new RuntimeException("Err: File not found.");
+
+                FileInputStream keyFile = new FileInputStream(f);
+                KeyStore keystore = KeyStore.getInstance(algorithm);
+                keystore.load(keyFile, filePassword.toCharArray());
+                keyFile.close();
+
+                return keystore;
+            } catch (Exception e) {
+                System.out.println("Err: getFromPath(), " + e.toString());
+            }
+
+            return null;
+        }
     }
 }

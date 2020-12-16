@@ -2,6 +2,8 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const cookieEncrypter = require('cookie-encrypter');
+const secretKey = 'ChangeMeMyLengthIs32BitsChangeMe';
 const dotenv = require('dotenv');
 
 // ========== [Variables] ========== \\
@@ -27,7 +29,8 @@ app.set('views', path.join(__dirname, viewsDir));
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-app.use(cookieParser());
+app.use(cookieParser(secretKey));
+app.use(cookieEncrypter(secretKey));
 
 // Setting Routes
 app.use("/", require("./routes/pages"));

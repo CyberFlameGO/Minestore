@@ -111,6 +111,10 @@ exports.savecart = async(req, res, next) => {
       return;
     }
 
+    // TODO:
+    // Ask the database for the package_limit and check how many times the player has bought the item
+    // If it's not the limit, let them buy it again
+
     res.cookie("package_id", package_id, { expires: new Date(Date.now() + 900000), httpOnly: true });
     res.redirect("/authenticate");
   } catch(error) {
@@ -126,9 +130,9 @@ exports.checkout = async(req, res, next) => {
   try {
     const { package_id, full_name, email_address, address_1, address_2, city, zip_code, state, country } = req.body;
 
-    var player_ign = req.cookies["player"];
+    var player = req.cookies["player"];
 
-    if(!package_id || !full_name || !email_address || !address_1 || !address_2 || !city || !zip_code || !state || !country || !player_ign) {
+    if(!package_id || !full_name || !email_address || !address_1 || !address_2 || !city || !zip_code || !state || !country || !player) {
       res.cookie("error", 1, { httpOnly: true });
       res.redirect("/checkout");
       return;
@@ -151,7 +155,7 @@ exports.checkout = async(req, res, next) => {
         }
 
         // create an encrypted cookie with the id.
-        res.cookie("purchase_information", { payment: payment, package_id: package_id, package_price: package_object.package_price, player_ign: player_ign.ign, buyer_name: full_name, buyer_email: email_address,
+        res.cookie("purchase_information", { payment: payment, package_id: package_id, package_price: package_object.package_price, player_ign: player.ign, player_uuid: player.uuid, buyer_name: full_name, buyer_email: email_address,
                                              buyer_address1: address_1, buyer_address2: address_2, buyer_city: city, buyer_zipcode: zip_code, buyer_state: state, buyer_country: country },
                                            { expires: new Date(Date.now() + 900000), httpOnly: true });
         res.redirect(payment.links[1].href);
@@ -203,9 +207,9 @@ exports.confirmpurchase = async(req, res, next) => {
   try {
     var purchase = req.cookies["purchase_information"];
 
-    const insert_query = "INSERT INTO purchases (payment_id, package_id, price, player_ign, buyer_name, buyer_email, buyer_address1, buyer_address2, buyer_city, buyer_zipcode, buyer_state, buyer_country,delivered) "
-                       + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    databasehandler.connection.query(insert_query, [purchase.payment.id, purchase.package_id, purchase.package_price, purchase.player_ign, purchase.buyer_name, purchase.buyer_email,
+    const insert_query = "INSERT INTO purchases (purchase_id, package_id, price, player_ign, player_uuid, buyer_name, buyer_email, buyer_address1, buyer_address2, buyer_city, buyer_zipcode, buyer_state, buyer_country,delivered) "
+                       + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    databasehandler.connection.query(insert_query, [purchase.payment.id, purchase.package_id, purchase.package_price, purchase.player_ign, purchase.player_uuid, purchase.buyer_name, purchase.buyer_email,
                                                     purchase.buyer_address1, purchase.buyer_address2, purchase.buyer_city, purchase.buyer_zipcode, purchase.buyer_state, purchase.buyer_country, 0],
                                                     (error, result) => {
       if(error) throw error;

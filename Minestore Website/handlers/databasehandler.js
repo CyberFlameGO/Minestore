@@ -19,13 +19,13 @@ connection.connect((error) => {
   if(error) throw error;
   console.log("[Minestore Debug] Connected to the MySQL database!");
 
-  var main_table = "CREATE TABLE IF NOT EXISTS packages (id VARCHAR(128) PRIMARY KEY, name VARCHAR(255), description VARCHAR(255), price DOUBLE(20,2))";
+  var main_table = "CREATE TABLE IF NOT EXISTS packages (id VARCHAR(128) PRIMARY KEY, name VARCHAR(255), description VARCHAR(255), price DOUBLE(20,2), unit_limit INT)";
   connection.query(main_table, (error, result) => {
     if(error) throw error;
     console.log("[Minestore Debug] Loaded the main MySQL table!");
   });
 
-  var purchases_table = "CREATE TABLE IF NOT EXISTS purchases (id INT AUTO_INCREMENT PRIMARY KEY, payment_id VARCHAR(255), package_id VARCHAR(128), price DOUBLE(20,2), player_ign VARCHAR(16), buyer_name VARCHAR(255), buyer_email VARCHAR(255), "
+  var purchases_table = "CREATE TABLE IF NOT EXISTS purchases (id INT AUTO_INCREMENT PRIMARY KEY, purchase_id VARCHAR(255), package_id VARCHAR(128), price DOUBLE(20,2), player_ign VARCHAR(16), player_uuid VARCHAR(36), buyer_name VARCHAR(255), buyer_email VARCHAR(255), "
                       + "buyer_address1 VARCHAR(255), buyer_address2 VARCHAR(255), buyer_city VARCHAR(255), buyer_zipcode INT(10), buyer_state VARCHAR(255), buyer_country VARCHAR(255), delivered INT(1))";
   connection.query(purchases_table, (error, result) => {
     if(error) throw error;

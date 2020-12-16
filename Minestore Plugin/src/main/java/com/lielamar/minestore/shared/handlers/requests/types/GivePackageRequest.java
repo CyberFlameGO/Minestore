@@ -5,8 +5,12 @@ import com.lielamar.minestore.shared.modules.MinestorePlugin;
 import org.json.JSONObject;
 
 import java.net.Socket;
+import java.util.Map;
 
 public abstract class GivePackageRequest extends Request {
+
+    protected String playerIGN;
+    protected String packageName;
 
     private String purchaseId;
 
@@ -20,7 +24,6 @@ public abstract class GivePackageRequest extends Request {
     public void loadRequestByVersion() {
         switch(getProtocolVersion()) {
             default:
-                System.out.println(getData());
                 purchaseId = getData().getString("purchase_id");
                 break;
         }
@@ -28,10 +31,20 @@ public abstract class GivePackageRequest extends Request {
 
     @Override
     public void runRequest() {
-        System.out.println("Received a purchase with the id: " + purchaseId);
-        // TODO:
-        // Connect to the MySQL Database, get the IGN of the buyer and the commands
-        // Then, execute commands here
+        int received_package = getPlugin().getStorageHandler().receivedPackage(purchaseId);
+        if(received_package != 0)
+            return;
+
+        String packageId = getPlugin().getStorageHandler().getPackageId(purchaseId);
+        this.playerIGN = getPlugin().getStorageHandler().getBuyerIGN(purchaseId);
+        this.packageName = getPlugin().getStorageHandler().getPackageName(packageId);
+        Map<String, String> commandServer = getPlugin().getStorageHandler().getCommandsOfPackage(packageId);
+
+        giveItems(commandServer);
+
         closeRequest();
     }
+
+    public abstract void giveItems(Map<String, String> commandServer);
+    public abstract void executeCommand(String command, String server);
 }

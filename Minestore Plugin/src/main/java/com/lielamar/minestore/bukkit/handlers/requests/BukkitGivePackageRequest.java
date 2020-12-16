@@ -2,9 +2,12 @@ package com.lielamar.minestore.bukkit.handlers.requests;
 
 import com.lielamar.minestore.shared.handlers.requests.types.GivePackageRequest;
 import com.lielamar.minestore.shared.modules.MinestorePlugin;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.json.JSONObject;
 
 import java.net.Socket;
+import java.util.Map;
 
 public class BukkitGivePackageRequest extends GivePackageRequest {
 
@@ -17,5 +20,24 @@ public class BukkitGivePackageRequest extends GivePackageRequest {
 
     public BukkitGivePackageRequest(MinestorePlugin plugin, Socket socket, int protocolVersion, int requestId, JSONObject data) {
         super(plugin, socket, protocolVersion, requestId, data);
+    }
+
+    @Override
+    public void giveItems(Map<String, String> commandServer) {
+        Player player = Bukkit.getPlayer(playerIGN);
+        if(player == null)
+            return;
+
+        for(String command : commandServer.keySet()) {
+            String server = commandServer.get(command);
+
+            executeCommand(command, server);
+        }
+    }
+
+    @Override
+    public void executeCommand(String command, String server) {
+        command = command.replace("%player%", playerIGN).replaceAll("%package%", packageName);
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
     }
 }
