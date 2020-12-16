@@ -36,4 +36,4 @@ app.use("/requests", require("./routes/requests"));
 // ========== [Initialization] ========== \\
 // Initializing the web server
 const port = process.env.PORT || 1803;
-app.listen(port, () => console.log(`Web Server is running on port ${port}`));
+app.listen(port, () => console.log(`[Minestore Debug] Web Server is running on port ${port}`));

@@ -3,7 +3,6 @@ let packages = new Map()
 // Reset the map every 5 minutes to keep prices updated
 setInterval(() => {
   packages = new Map()
-  console.log("Resetted prices")
 }, 300000);
 
 exports.addpackage = (package_id, package_object) => {

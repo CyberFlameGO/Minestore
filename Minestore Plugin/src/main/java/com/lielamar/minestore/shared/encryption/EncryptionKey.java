@@ -4,9 +4,11 @@ import javax.annotation.Nullable;
 import javax.crypto.SecretKey;
 import java.io.*;
 import java.security.NoSuchAlgorithmException;
+import java.util.Random;
 
 public class EncryptionKey {
 
+    private String keyRaw;
     private SecretKey secretKey;
 
     public EncryptionKey(String path) {
@@ -27,12 +29,14 @@ public class EncryptionKey {
                 javax.crypto.KeyGenerator generator = javax.crypto.KeyGenerator.getInstance("AES");
                 generator.init(128);
 
-                this.secretKey = generator.generateKey();
+                this.keyRaw = getSaltString();
+                this.secretKey = AES.getKeyObject(this.keyRaw);
 
                 BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
-                bos.write(this.secretKey.toString().getBytes());
+                bos.write(this.keyRaw.getBytes());
                 bos.close();
                 bos.flush();
+                System.out.println("Generated a key!");
             } else {
                 BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
 
@@ -40,6 +44,7 @@ public class EncryptionKey {
                 while(bis.available() > 0)
                     keyBuilder.append(bis.read());
 
+                this.keyRaw = keyBuilder.toString();
                 this.secretKey = AES.getKeyObject(keyBuilder.toString());
             }
         } catch(IOException | NoSuchAlgorithmException exception) {
@@ -57,6 +62,17 @@ public class EncryptionKey {
      */
     @Nullable
     public String getKey() {
-        return this.secretKey.toString();
+        return this.keyRaw;
+    }
+
+    final String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+    protected String getSaltString() {
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < 128) {
+            int index = (int) (rnd.nextFloat() * chars.length());
+            salt.append(chars.charAt(index));
+        }
+        return salt.toString();
     }
 }

@@ -16,13 +16,21 @@ public class TestsSocketServerHandler {
         }
     }
 
-    private final ServerSocket serverSocket;
+    private ServerSocket serverSocket;
 
     public TestsSocketServerHandler(int port) throws IOException, JSONException {
         this.serverSocket = new ServerSocket(port);
         System.out.println("Server is listening on port " + port);
 
-        listen();
+        listen2();
+    }
+
+    private void listen2() throws IOException{
+//        serverSocket.close();
+        System.out.println("Server is closed");
+
+        this.serverSocket = new ServerSocket(1804);
+        System.out.println("Server is listening on port " + 1804);
     }
 
     @SuppressWarnings("InfiniteLoopStatement")

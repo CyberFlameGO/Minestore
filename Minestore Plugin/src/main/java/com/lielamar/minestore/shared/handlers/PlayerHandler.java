@@ -33,7 +33,7 @@ public class PlayerHandler {
     @Nullable
     public CustomPlayer getPlayer(UUID uuid) {
         for(CustomPlayer cp : this.players) {
-            if(cp.getPlayerUUID() == uuid)
+            if(cp.getPlayerUUID().equals(uuid))
                 return cp;
         }
         return null;

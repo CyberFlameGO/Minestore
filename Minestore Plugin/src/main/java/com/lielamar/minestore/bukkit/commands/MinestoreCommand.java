@@ -5,6 +5,7 @@ import com.lielamar.minestore.bukkit.Minestore;
 import com.lielamar.minestore.bukkit.commands.subcommands.AuthCommand;
 import com.lielamar.minestore.bukkit.commands.subcommands.HelpCommand;
 import com.lielamar.minestore.bukkit.commands.subcommands.ReloadCommand;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
@@ -42,7 +43,7 @@ public class MinestoreCommand implements CommandExecutor {
 
         this.commands.add(new AuthCommand(AUTH, this.plugin));
         this.commands.add(new ReloadCommand(RELOAD, this.plugin));
-        this.commands.add(new HelpCommand(RELOAD, this.commands));
+        this.commands.add(new HelpCommand(HELP, this.commands));
     }
 
     /**

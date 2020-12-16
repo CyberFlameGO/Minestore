@@ -45,15 +45,14 @@ exports.authenticate = async(req, res, next) => {
           "protocol_version":1,
           "request_id":0,
           "data": {
-            "player_name":ign
+            "player_name":ign,
+            "player_uuid":body.id
           }
         };
 
         client.write(JSON.stringify(request));
-        console.log("CLIENT: " + JSON.stringify(request));
 
         client.on("data", (data) => {
-          console.log("SERVER: " + data.toString());
           var response = JSON.parse(data.toString());
 
           if(response.data.authenticated === true) {
@@ -69,7 +68,7 @@ exports.authenticate = async(req, res, next) => {
         });
 
         client.on("error", () => {
-          console.log("[DEBUG] Note: Couldn't connect to the server");
+          console.log("[Minestore Debug] Couldn't connect to the server");
           res.cookie("error", 4, { httpOnly: true });
           res.redirect("/authenticate");
 
@@ -78,7 +77,7 @@ exports.authenticate = async(req, res, next) => {
         });
 
         client.on("end", () => {
-          console.log("DEBUG: Disconnected from the server");
+          console.log("[Minestore Debug] Disconnected from the server");
         });
 
         client.end();
@@ -113,13 +112,16 @@ exports.savecart = async(req, res, next) => {
     }
 
     res.cookie("package_id", package_id, { expires: new Date(Date.now() + 900000), httpOnly: true });
-    console.log("saving cart with: " + package_id)
     res.redirect("/authenticate");
   } catch(error) {
     console.log(error);
   }
 }
 
+/**
+ * An async method for checking a user out. Building an object of the package
+ * and redirecting the user to the paypal checkout page.
+ */
 exports.checkout = async(req, res, next) => {
   try {
     const { package_id, full_name, email_address, address_1, address_2, city, zip_code, state, country } = req.body;
@@ -160,6 +162,10 @@ exports.checkout = async(req, res, next) => {
   }
 }
 
+/**
+ * Creating a json object from the package_name, price and description variables, to
+ * send to paypal.
+ */
 function createPaymentJson(package_name, package_price, package_description) {
   return {
     "intent": "sale",
@@ -189,6 +195,10 @@ function createPaymentJson(package_name, package_price, package_description) {
   };
 }
 
+/**
+ * An async method for confirming a purchase. Inserting the data into the database and then sending
+ * a socket to the minecraft server, to give the player their items.
+ */
 exports.confirmpurchase = async(req, res, next) => {
   try {
     var purchase = req.cookies["purchase_information"];
@@ -199,7 +209,7 @@ exports.confirmpurchase = async(req, res, next) => {
                                                     purchase.buyer_address1, purchase.buyer_address2, purchase.buyer_city, purchase.buyer_zipcode, purchase.buyer_state, purchase.buyer_country, 0],
                                                     (error, result) => {
       if(error) throw error;
-      console.log("A new purchase inserted to the database! Purchase Id: " + result.insertId + " of IGN: " + purchase.player_ign + " bought " + purchase.package_id);
+      console.log("[Minestore Debug] A new purchase inserted to the database! Purchase Id: " + result.insertId + " of IGN: " + purchase.player_ign + " bought " + purchase.package_id);
       // TODO: send to the minecraft server with the payment_id
 
       res.clearCookie("purchase_information");
@@ -211,15 +221,14 @@ exports.confirmpurchase = async(req, res, next) => {
         "protocol_version":1,
         "request_id":1,
         "data": {
-          "purchase_id":purchase.payment_id
+          "purchase_id":purchase.payment.id
         }
       };
 
       client.write(JSON.stringify(request));
-      console.log("CLIENT: " + JSON.stringify(request));
 
       client.on("error", () => {
-        console.log("[DEBUG] Note: Couldn't connect to the server");
+        console.log("[Minestore Debug] Couldn't connect to the server");
         res.cookie("error", 4, { httpOnly: true });
         res.redirect("/checkout");
 
@@ -228,7 +237,7 @@ exports.confirmpurchase = async(req, res, next) => {
       });
 
       client.on("end", () => {
-        console.log("DEBUG: Disconnected from the server");
+        console.log("[Minestore Debug] Disconnected from the server");
         res.redirect("/thankyou");
 
         client.end();

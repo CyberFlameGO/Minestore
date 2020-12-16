@@ -8,9 +8,7 @@ import java.net.Socket;
 
 public abstract class GivePackageRequest extends Request {
 
-    private String targetPlayer;
-    private int packageId;
-    private int transactionId;
+    private String purchaseId;
 
     public GivePackageRequest(MinestorePlugin plugin, Socket socket, int protocolVersion, int requestId, JSONObject data) {
         super(plugin, socket, protocolVersion, requestId, data);
@@ -22,18 +20,18 @@ public abstract class GivePackageRequest extends Request {
     public void loadRequestByVersion() {
         switch(getProtocolVersion()) {
             default:
-                targetPlayer = getData().getString("player_name");
-                packageId = getData().getInt("package_id");
-                transactionId = getData().getInt("transaction_id");
+                System.out.println(getData());
+                purchaseId = getData().getString("purchase_id");
                 break;
         }
     }
 
     @Override
     public void runRequest() {
+        System.out.println("Received a purchase with the id: " + purchaseId);
         // TODO:
-        // Write this method
-
+        // Connect to the MySQL Database, get the IGN of the buyer and the commands
+        // Then, execute commands here
         closeRequest();
     }
 }

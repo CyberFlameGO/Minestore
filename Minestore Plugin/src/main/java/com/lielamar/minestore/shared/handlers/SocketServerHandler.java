@@ -1,37 +1,61 @@
 package com.lielamar.minestore.shared.handlers;
 
-import com.lielamar.minestore.shared.handlers.requests.Request;
-
+import javax.net.ssl.SSLServerSocket;
+import javax.net.ssl.SSLServerSocketFactory;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class SocketServerHandler {
 
-    private final ServerSocket serverSocket;
+    private final int port;
     private final RequestHandler requestHandler;
 
-    public SocketServerHandler(int port, RequestHandler requestHandler) throws IOException {
-        this.serverSocket = new ServerSocket(port);
+    private SSLServerSocket serverSocket;
+
+    public SocketServerHandler(int port, RequestHandler requestHandler) {
+        this.port = port;
         this.requestHandler = requestHandler;
 
-        listen();
+        new Thread(() -> {
+            try {
+                listen();
+            } catch (IOException exception) {
+                exception.printStackTrace();
+            }
+        }).start();
     }
 
-    @SuppressWarnings("InfiniteLoopStatement")
     private void listen() throws IOException {
-        while(true) {
-            Socket socket = serverSocket.accept();
-            System.out.println("connection with client established!");
+        SSLServerSocketFactory sslssf = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
+        this.serverSocket = (SSLServerSocket) sslssf.createServerSocket(port,15);
 
-            requestHandler.readRequest(socket);
+        System.out.println("[Minestore Debug] Running ServerSocket on port " + port);
+
+        while(true) {
+            if(this.serverSocket.isClosed()) {
+                System.out.println("[Minestore Debug] Disabling the ServerSocket on port " + port);
+                break;
+            }
+
+            try {
+                Socket socket = serverSocket.accept();
+                System.out.println("[Minestore Debug] Connection with client established!");
+
+                requestHandler.readRequest(socket);
+            } catch(SocketException exception) {
+                System.out.println("=========================================================================================================");
+                System.out.println("[Minestore] Minestore detected a potential reload happening on your server.");
+                System.out.println("[Minestore] If you did use /reload please read this message carefully.");
+                System.out.println("[Minestore] It is recommended to avoid using /Reload but rather to close the server completely everytime.");
+                System.out.println("[Minestore] If not done, the plugin might break!");
+                System.out.println("=========================================================================================================");
+            }
         }
     }
 
-    public void destroy() throws IOException {
-        serverSocket.close();
-
-        for(Request request : requestHandler.getRequests())
-            request.getSocket().close();
+    public SSLServerSocket getServerSocket() {
+        return this.serverSocket;
     }
 }
