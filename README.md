@@ -7,7 +7,7 @@
 Minestore is an online store solution for Minecraft servers.
 It serves more as a “proof of concept”, to show that server owners can securely sell perks on their server, avoiding most “refund” issues.
 
-More information can be found (HERE)[https://docs.google.com/document/d/1Gqy6RHqojxX5QjQuuB6GWjKTvyUgBUTPidzOyTKpOa4/edit]
+More information can be found [HERE](https://docs.google.com/document/d/1Gqy6RHqojxX5QjQuuB6GWjKTvyUgBUTPidzOyTKpOa4)
 
 * This plugin was developed from scratch and is not related to Buycraft by any means.
 It is in no way a complete plugin and is advised to not to be used until a full version is released!
