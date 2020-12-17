@@ -18,8 +18,8 @@ This source-code is a structure, a point to start off, a framework for other dev
 ## Features
 * MySQL Integration
 * Purchase history with full information
-* Paypal Intergration
-* Secure Client Side
+* Paypal Integration
+* Secure Client-Side
 * Socket communication between Minecraft and Web Server
 * Authentication System
 * Item Giving & Command Executing Systems
