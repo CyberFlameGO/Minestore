@@ -1,6 +1,7 @@
 # Minestore
 
-[<img alt="discord" src="https://lielamar.com/other/github_discord.png" size=1.5>](https://discord.gg/NzgBrqR)
+[<img alt="spigot" src="https://lielamar.com/other/github_spigot.png" size=1.5>](https://www.spigotmc.org/resources/minestore-proof-of-concept-a-flexible-open-source-webstore.86795/)
+<br>[<img alt="discord" src="https://lielamar.com/other/github_discord.png" size=1.5>](https://discord.gg/NzgBrqR)
 <br>
 
 ## Information
