@@ -34,6 +34,7 @@ This source-code is a structure, a point to start off, a framework for other dev
 * Adding an option to turn debug messages on and off to avoid console spam
 * Make the plugin fully customizable textwise
 * Switching to SLL Socket Communication
+* Making the packages non-static by implementing a database call before loading the /category/ pages.
 * Add Sponge Support(?)
 * Add MongoDB Support(?)
 * Make cleaner code with notes
