@@ -28,6 +28,7 @@ This source-code is a structure, a point to start off, a framework for other dev
 
 ## What's next?
 * <strong>FIX THE PAY NOW BUTTON FFS</strong>
+* Block Sockets from IPs not listed in config
 * Update the 'Delivered' column on the database when giving a player their package 
 * Add Bungeecord Support (including handling per-server commands)
 * Adding an option to have an auto-authenticate for players who don't want to secure their purchases
