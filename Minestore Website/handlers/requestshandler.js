@@ -14,8 +14,8 @@ const minecraftMinestorePort = process.env.MINECRAFT_PORT || 1804;
 
 paypal.configure({
   'mode': 'sandbox',
-  'client_id': 'AQjowo7MNT3jJT_VM-060xIBpfgWAGtVhSdBrM4NGOfw9Y9o_P9Xm7TtEZtYr35YUeH7UjMDmIHZqSWh',
-  'client_secret': 'EI8Knuk9jRVtAvC5frls_MWl21MAakkMYEikQjCSmtS6Sq34SKVhmBUiY_NJYOkXKr6SCrchx5zfdUks'
+  'client_id': 'REPLACE_WITH_YOUR_CLIENT_ID',
+  'client_secret': 'REPLACE_WITH_YOUR_CLIENT_SECRET'
 });
 
 /**
