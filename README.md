@@ -26,7 +26,11 @@ This source-code is a structure, a point to start off, a framework for other dev
 
 
 ## What's next?
+* <strong>FIX THE PAY NOW BUTTON FFS</strong>
+* Update the 'Delivered' column on the database when giving a player their package 
 * Add Bungeecord Support (including handling per-server commands)
+* Adding an option to have an auto-authenticate for players who don't want to secure their purchases
+* Check the unit limit to make sure players don't buy something they already have/too many times
 * Adding an option to turn debug messages on and off to avoid console spam
 * Make the plugin fully customizable textwise
 * Switching to SLL Socket Communication
