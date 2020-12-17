@@ -10,7 +10,7 @@ It serves more as a “proof of concept”, to show that server owners can secur
 More information can be found [HERE](https://docs.google.com/document/d/1Gqy6RHqojxX5QjQuuB6GWjKTvyUgBUTPidzOyTKpOa4)
 
 * This plugin was developed from scratch and is not related to Buycraft by any means.
-It is in no way a complete plugin and is advised to not to be used until a full version is released!
+It is in no way a complete plugin and is advised not to be used until a full version is released!
 
 This source-code is a structure, a point to start off, a framework for other developers to continue building their store upon it.
 
