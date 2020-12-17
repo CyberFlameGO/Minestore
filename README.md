@@ -42,8 +42,8 @@ This source-code is a structure, a point to start off, a framework for other dev
 * Make cleaner code with notes
 
 ## Using Liel's Minestore
-You are not allowed to use this code without asking for permissions, unless complying to the GNU 3 License.
-You can contact me through my email @ liel@lielamar.com, or through Spigot/Discord. I will grant permissions to everyone, regardless of the server, for other use.
+You are allowed to use this code under the GNU 3 License.
+You can contact me through my email @ liel@lielamar.com, or through Spigot/Discord for further explanation.
 When using this code you are allowed to change anything about it, however, some things may not work properly if you change them.
 This framework is trying to be the best version of itself. It still has some bugs to fix and features to add, but overall, it serves it's initial purpose.
 
