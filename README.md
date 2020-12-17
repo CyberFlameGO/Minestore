@@ -35,15 +35,15 @@ This source-code is a structure, a point to start off, a framework for other dev
 * Check the unit limit to make sure players don't buy something they already have/too many times
 * Adding an option to turn debug messages on and off to avoid console spam
 * Make the plugin fully customizable textwise
-* Switching to SLL Socket Communication
+* Switching to SSL Socket Communication
 * Making the packages non-static by implementing a database call before loading the /category/ pages.
 * Add Sponge Support(?)
 * Add MongoDB Support(?)
 * Make cleaner code with notes
 
 ## Using Liel's Minestore
-You are not allowed to use this code without asking for permissions.
-You can contact me through my email @ liel@lielamar.com, or through Spigot/Discord. I will grant permissions to everyone, regardless of the server.
+You are not allowed to use this code without asking for permissions, unless complying to the GNU 3 License.
+You can contact me through my email @ liel@lielamar.com, or through Spigot/Discord. I will grant permissions to everyone, regardless of the server, for other use.
 When using this code you are allowed to change anything about it, however, some things may not work properly if you change them.
 This framework is trying to be the best version of itself. It still has some bugs to fix and features to add, but overall, it serves it's initial purpose.
 
