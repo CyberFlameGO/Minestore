@@ -54,4 +54,4 @@ This framework is trying to be the best version of itself. It still has some bug
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 ## License
-[GNU 3](https://choosealicense.com/licenses/agpl-3.0/)
+[GPL 3](https://choosealicense.com/licenses/agpl-3.0/)
