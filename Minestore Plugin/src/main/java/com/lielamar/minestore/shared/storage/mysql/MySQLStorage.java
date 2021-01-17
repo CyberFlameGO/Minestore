@@ -77,8 +77,9 @@ public class MySQLStorage extends StorageHandler {
         return this.connection != null && !this.connection.isClosed();
     }
 
+
     @Override
-    public int receivedPackage(String purchaseId) {
+    public int isPackageDelivered(String purchaseId) {
         try {
             if(!isValidConnection()) return 1;
 
@@ -93,6 +94,27 @@ public class MySQLStorage extends StorageHandler {
             e.printStackTrace();
         }
         return 1;
+    }
+
+    @Override
+    public boolean setPackageDelivered(String purchaseId, boolean delivered) {
+        int deliveredRaw = (delivered) ? 1 : 0;
+
+        try {
+            if(!isValidConnection())
+                return false;
+
+            PreparedStatement statement = this.connection.prepareStatement("UPDATE purchases SET `delivered` = ? WHERE `purchase_id` = ?;");
+            statement.setInt(1, deliveredRaw);
+            statement.setString(2, purchaseId);
+            ResultSet result = statement.executeQuery();
+
+            if(result.next())
+                return true;
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override
@@ -131,6 +153,7 @@ public class MySQLStorage extends StorageHandler {
         return null;
     }
 
+
     @Override
     public Map<String, String> getCommandsOfPackage(String packageId) {
         try {
@@ -151,6 +174,7 @@ public class MySQLStorage extends StorageHandler {
         }
         return null;
     }
+
 
     @Override
     public String getPackageName(String packageId) {

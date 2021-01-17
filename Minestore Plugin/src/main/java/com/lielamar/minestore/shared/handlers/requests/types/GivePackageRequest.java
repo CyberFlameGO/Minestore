@@ -31,7 +31,7 @@ public abstract class GivePackageRequest extends Request {
 
     @Override
     public void runRequest() {
-        int received_package = getPlugin().getStorageHandler().receivedPackage(purchaseId);
+        int received_package = getPlugin().getStorageHandler().isPackageDelivered(purchaseId);
         if(received_package != 0)
             return;
 
@@ -41,6 +41,7 @@ public abstract class GivePackageRequest extends Request {
         Map<String, String> commandServer = getPlugin().getStorageHandler().getCommandsOfPackage(packageId);
 
         giveItems(commandServer);
+        getPlugin().getStorageHandler().setPackageDelivered(packageId, true);
 
         closeRequest();
     }
