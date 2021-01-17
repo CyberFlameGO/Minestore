@@ -1,5 +1,5 @@
 name: Minestore
-version: 1.0
+version: 1.0.1
 description: The Bukkit plugin of Minestore
 author: LielAmar
 main: com.lielamar.minestore.bukkit.Minestore

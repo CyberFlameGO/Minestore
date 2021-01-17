@@ -4,7 +4,8 @@ import java.util.Map;
 
 public abstract class StorageHandler {
 
-    public abstract int receivedPackage(String purchaseId);
+    public abstract int isPackageDelivered(String purchaseId);
+    public abstract boolean setPackageDelivered(String packageId, boolean delivered);
     public abstract String getPackageId(String purchaseId);
     public abstract String getBuyerIGN(String purchaseId);
 
