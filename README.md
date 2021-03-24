@@ -27,7 +27,8 @@ This source-code is a structure, a point to start off, a framework for other dev
 
 
 ## What's next?
-* <strong>FIX THE PAY NOW BUTTON FFS</strong>
+* Change the way I authenticate paypal purchases
+* <strong>Fix the Pay Now Button</strong>
 * Block Sockets from IPs not listed in config
 * Update the 'Delivered' column on the database when giving a player their package 
 * Add Bungeecord Support (including handling per-server commands)
