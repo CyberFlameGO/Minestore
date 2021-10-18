@@ -199,58 +199,5 @@ function createPaymentJson(package_name, package_price, package_description) {
   };
 }
 
-/**
- * An async method for confirming a purchase. Inserting the data into the database and then sending
- * a socket to the minecraft server, to give the player their items.
- */
 exports.confirmpurchase = async(req, res, next) => {
-  try {
-    var purchase = req.cookies["purchase_information"];
-
-    const insert_query = "INSERT INTO purchases (purchase_id, package_id, price, player_ign, player_uuid, buyer_name, buyer_email, buyer_address1, buyer_address2, buyer_city, buyer_zipcode, buyer_state, buyer_country,delivered) "
-                       + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    databasehandler.connection.query(insert_query, [purchase.payment.id, purchase.package_id, purchase.package_price, purchase.player_ign, purchase.player_uuid, purchase.buyer_name, purchase.buyer_email,
-                                                    purchase.buyer_address1, purchase.buyer_address2, purchase.buyer_city, purchase.buyer_zipcode, purchase.buyer_state, purchase.buyer_country, 0],
-                                                    (error, result) => {
-      if(error) throw error;
-      console.log("[Minestore Debug] A new purchase inserted to the database! Purchase Id: " + result.insertId + " of IGN: " + purchase.player_ign + " bought " + purchase.package_id);
-      // TODO: send to the minecraft server with the payment_id
-
-      res.clearCookie("purchase_information");
-      res.clearCookie("package");
-      res.clearCookie("player");
-
-      const client = net.connect(minecraftMinestorePort, "localhost");
-      var request = {
-        "protocol_version":1,
-        "request_id":1,
-        "data": {
-          "purchase_id":purchase.payment.id
-        }
-      };
-
-      client.write(JSON.stringify(request));
-
-      client.on("error", () => {
-        console.log("[Minestore Debug] Couldn't connect to the server");
-        res.cookie("error", 4, { httpOnly: true });
-        res.redirect("/checkout");
-
-        client.end();
-        return;
-      });
-
-      client.on("end", () => {
-        console.log("[Minestore Debug] Disconnected from the server");
-        res.redirect("/thankyou");
-
-        client.end();
-        return;
-      });
-
-      client.end();
-    });
-  } catch(error) {
-    console.log(error);
-  }
 }
